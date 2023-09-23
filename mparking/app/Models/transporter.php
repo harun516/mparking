@@ -12,5 +12,7 @@ class transporter extends Model
     protected $fillable = [
         'transporter_id',
         'nama',
+        'alamat',
+        'no_telp',
     ];
 }

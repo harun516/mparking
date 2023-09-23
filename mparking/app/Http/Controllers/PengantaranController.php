@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\pengantaran as pgn;
 
 class PengantaranController extends Controller
 {
@@ -13,7 +14,9 @@ class PengantaranController extends Controller
      */
     public function index()
     {
-        //
+        // Logika atau data apa pun yang ingin Anda proses sebelum menampilkan view
+
+        return view('pengantaran.index'); // Menampilkan view 'dashboard.index'
     }
 
     /**
@@ -34,7 +37,32 @@ class PengantaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            // Validasi input jika diperlukan
+            $validatedData = $request->validate([
+                'pgnid' => 'required',
+                'nm' => 'required',
+                'alm' => 'required',
+                'ntlp' => 'required',
+            ]);
+
+            // Proses penyimpanan data ke dalam database menggunakan model dengan alias
+            $pengantaran = new pgn; // Menggunakan alias rl
+            $pengantaran->pengantaran_id = $request->pgnid;
+            $pengantaran->nama = $request->nm;
+            $pengantaran->alamat = $request->alm;
+            $pengantaran->no_telp = $request->ntlp;
+            $pengantaran->save();
+
+            // Respon untuk AJAX (Anda dapat mengirim pesan JSON sebagai balasan)
+            return response()->json(['message' => 'Data berhasil disimpan']);
+        } catch (QueryException $e) {
+            // Tangani kesalahan database
+            return response()->json(['error' => 'Terjadi kesalahan pada database'], 500);
+        } catch (\Exception $e) {
+            // Tangani kesalahan umum lainnya
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**

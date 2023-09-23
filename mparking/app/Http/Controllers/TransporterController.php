@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\transporter as tpr;
 
 class TransporterController extends Controller
 {
@@ -13,7 +14,9 @@ class TransporterController extends Controller
      */
     public function index()
     {
-        //
+        // Logika atau data apa pun yang ingin Anda proses sebelum menampilkan view
+
+        return view('transporter.index'); // Menampilkan view 'dashboard.index'
     }
 
     /**
@@ -34,7 +37,32 @@ class TransporterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            // Validasi input jika diperlukan
+            $validatedData = $request->validate([
+                'tprid' => 'required',
+                'nm' => 'required',
+                'alm' => 'required',
+                'ntlp' => 'required',
+            ]);
+
+            // Proses penyimpanan data ke dalam database menggunakan model dengan alias
+            $transporter = new tpr; // Menggunakan alias rl
+            $transporter->transporter_id = $request->tprid;
+            $transporter->nama = $request->nm;
+            $transporter->alamat = $request->alm;
+            $transporter->no_telp = $request->ntlp;
+            $transporter->save();
+
+            // Respon untuk AJAX (Anda dapat mengirim pesan JSON sebagai balasan)
+            return response()->json(['message' => 'Data berhasil disimpan']);
+        } catch (QueryException $e) {
+            // Tangani kesalahan database
+            return response()->json(['error' => 'Terjadi kesalahan pada database'], 500);
+        } catch (\Exception $e) {
+            // Tangani kesalahan umum lainnya
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**

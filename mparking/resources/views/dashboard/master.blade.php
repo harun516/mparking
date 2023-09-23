@@ -4,38 +4,42 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- otomatis sesuai button sidebar --}}
     <title id="document-title"></title>
-
+    {{-- Font --}}
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
+    {{-- adminlte --}}
     <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\plugins\fontawesome-free\css\all.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\dist\css\adminlte.min.css') }}">
+    {{-- iosmode --}}
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
+    {{-- bootstrap --}}
     <link rel="stylesheet"
         href="{{ asset('mparking\adminlte\admin-lte\plugins\tempusdominus-bootstrap-4\css\tempusdominus-bootstrap-4.min.css') }}">
-
+    {{-- icheck --}}
     <link rel="stylesheet"
         href="{{ asset('mparking\adminlte\admin-lte\plugins\icheck-bootstrap\icheck-bootstrap.min.css') }}">
-
+    {{-- map --}}
     <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\plugins\jqvmap\jqvmap.min.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\dist\css\adminlte.min.css') }}">
-
+    {{-- scrollbars --}}
     <link rel="stylesheet"
         href="{{ asset('mparking\adminlte\admin-lte\plugins\overlayScrollbars\css\OverlayScrollbars.min.css') }}">
-
+    {{-- daterangepicker --}}
     <link rel="stylesheet"
         href="{{ asset('mparking\adminlte\admin-lte\plugins\daterangepicker\daterangepicker.css') }}">
-
+    {{-- summernote --}}
     <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\plugins\summernote\summernote-bs4.min.css') }}">
-
+    {{-- sweetalert2 --}}
     <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\plugins\sweetalert2\sweetalert2.min.css') }}">
-
+    {{-- select2 --}}
     <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\plugins\select2\css\select2.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('mparking\adminlte\admin-lte\plugins\select2-bootstrap4-theme\select2-bootstrap4.min.css') }}">
+    {{-- DataTable --}}
+    <link
+        href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/fh-3.4.0/kt-2.10.0/r-2.5.0/rg-1.4.0/rr-1.4.1/sc-2.2.0/sb-1.5.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.css"
+        rel="stylesheet">
 
     <style>
         .navbar-light .navbar-nav .nav-link {
@@ -67,8 +71,35 @@
             background-color: #28a745;
             color: white;
         }
+
+        .nav-icon:active {
+            animation: shake 3s;
+            /* Animasi shake dengan durasi 0.5 detik */
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            75% {
+                transform: translateX(-5px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
     </style>
-    <script nonce="7d0581b1-6407-4186-a0f2-f444dea1e57e">
+    {{-- <script nonce="7d0581b1-6407-4186-a0f2-f444dea1e57e">
         (function(w, d) {
             ! function(j, k, l, m) {
                 j[l] = j[l] || {};
@@ -132,7 +163,7 @@
                     "DOMContentLoaded", zaraz.init)
             }(w, d, "zarazData", "script");
         })(window, document);
-    </script>
+    </script> --}}
 
 </head>
 
@@ -182,52 +213,55 @@
         {{-- finish footer --}}
 
     </div>
-
-
+    {{-- jquery --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jquery\jquery.min.js') }}"></script>
-
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jquery-ui\jquery-ui.min.js') }}"></script>
-
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
-
     <script>
         $(function() {
             bsCustomFileInput.init();
         });
     </script>
-
+    {{-- sweetalert2 --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\sweetalert2\sweetalert2.all.min.js') }}"></script>
-
+    {{-- Bootstrap --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\bootstrap\js\bootstrap.bundle.min.js') }}"></script>
-
+    {{-- chart --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\chart.js\Chart.min.js') }}"></script>
-
+    {{-- sparkline --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\sparklines\sparkline.js') }}"></script>
-
+    {{-- map --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jqvmap\jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jqvmap\maps\jquery.vmap.usa.js') }}"></script>
-
+    {{-- knob --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jquery-knob\jquery.knob.min.js') }}"></script>
-
+    {{-- moment --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\moment\moment.min.js') }}"></script>
+    {{-- daterangepicker --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\daterangepicker\daterangepicker.js') }}"></script>
-
+    {{-- tempusdominus-bootstrap-4 --}}
     <script
         src="{{ asset('mparking\adminlte\admin-lte\plugins\tempusdominus-bootstrap-4\js\tempusdominus-bootstrap-4.min.js') }}">
     </script>
-
+    {{-- summernote-bs4 --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\summernote\summernote-bs4.min.js') }}"></script>
-
+    {{-- overlayScrollbars --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\overlayScrollbars\js\jquery.overlayScrollbars.min.js') }}">
     </script>
-
+    {{-- adminlte --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\dist\js\adminlte.js?v=3.2.0') }}"></script>
-
+    {{-- dashboard --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\dist\js\pages\dashboard.js') }}"></script>
+    {{-- select2 --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\select2\js\select2.full.min.js') }}"></script>
-
+    {{-- dataTables --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script
+        src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/fh-3.4.0/kt-2.10.0/r-2.5.0/rg-1.4.0/rr-1.4.1/sc-2.2.0/sb-1.5.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.js">
+    </script>
     <script>
         // Mendapatkan URL saat ini
         var currentUrl = window.location.href;

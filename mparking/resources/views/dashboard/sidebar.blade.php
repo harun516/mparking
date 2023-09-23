@@ -40,7 +40,7 @@
 
                     <li class="nav-item">
                         <a href="{{ route('dashboard.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-chart-bar"></i>
                             <p>
                                 Dashboard
                             </p>
@@ -49,7 +49,7 @@
 
                     <li class="nav-item menu-close">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <i class="nav-icon fas fa-cogs"></i>
                             <p>
                                 Admin
                                 <i class="right fas fa-angle-left"></i>
@@ -58,31 +58,31 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('user.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i id="userIcon" class="fas fa-user-cog nav-icon"></i>
                                     <p>Pengaturan User</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('role.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-users nav-icon"></i>
                                     <p>Pengaturan Role</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('mobil.index') }}" class="nav-link">
-                                    <i class="fas fa-car nav-icon animation__shake"></i>
+                                    <i class="fas fa-car nav-icon"></i>
                                     <p>Pengaturan Mobil</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('pengantaran.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-shipping-fast nav-icon"></i>
                                     <p>Pengaturan Pengantaran</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('transporter.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-truck nav-icon"></i>
                                     <p>Pengaturan Transporter</p>
                                 </a>
                             </li>

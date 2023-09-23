@@ -29,6 +29,9 @@ Route::get('/nimda', 'Controller@index')->name('dashboard.index');
 // user
 Route::get('/user', 'UserController@index')->name('user.index');
 Route::post('/user/store', 'UserController@store')->name('user.store');
+Route::get('/user/get', 'UserController@get')->name('user.get');
+Route::delete('/user/hapus/{id}', 'UserController@destroy')->name('user.destroy');
+
 
 // role
 Route::get('/role', 'RoleController@index')->name('role.index');

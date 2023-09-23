@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user as usr;
 use App\Models\role as rl;
-use Illuminate\Support\Facades\Hash;
+use App\Models\user as usr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,8 +16,27 @@ class UserController extends Controller
      */
     public function index()
     {
+        // combobox
         $roles = rl::select('role_id', 'nama')->get();
         return view('user.index', compact('roles'));
+
+    }
+
+    public function get(Request $request)
+    {
+        // $users = usr::all(); // Gantilah ini dengan query untuk mengambil data Anda
+        // return response()->json(['data' => $users]);
+
+        $users = usr::with('role')->get();
+        
+
+        // Loop melalui pengguna dan tambahkan kolom "nama_role" berdasarkan ID peran
+        foreach ($users as $user) {
+            $nama_role = $user->role ? $user->role->nama : 'Tidak Diketahui';
+            $user->nama_role = $nama_role;
+        }
+
+        return response()->json(['data' => $users]);
     }
 
     /**
@@ -27,7 +46,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -109,6 +128,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Cari pengguna berdasarkan ID
+        $user = usr::find($id);
+
+        // Periksa apakah pengguna ditemukan
+        if (!$user) {
+            return response()->json(['message' => 'Pengguna tidak ditemukan'], 404);
+        }
+
+        // Hapus pengguna
+        $user->delete();
+
+        return response()->json(['message' => 'Pengguna berhasil dihapus']);
     }
 }

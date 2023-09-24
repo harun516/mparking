@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\pengantaran as pgn;
+use Illuminate\Http\Request;
 
 class PengantaranController extends Controller
 {
@@ -17,6 +17,12 @@ class PengantaranController extends Controller
         // Logika atau data apa pun yang ingin Anda proses sebelum menampilkan view
 
         return view('pengantaran.index'); // Menampilkan view 'dashboard.index'
+    }
+
+    public function get(Request $request)
+    {
+        $pengantarans = pgn::all(); // Gantilah ini dengan query untuk mengambil data Anda
+        return response()->json(['data' => $pengantarans]);
     }
 
     /**
@@ -73,7 +79,46 @@ class PengantaranController extends Controller
      */
     public function show($id)
     {
-        //
+        $pengantaran = pgn::find($id);
+        return response()->json($pengantaran);
+    }
+
+    public function simpan(Request $request)
+    {
+        try {
+            // Validasi input form
+            $request->validate([
+                'nm' => 'required|string|max:255',
+                'pgnid' => 'required|string|max:255',
+                'alm' => 'required|string|max:255',
+                'ntlp' => 'required|string|max:255',
+            ]);
+
+            // Ambil data pengguna dari input form
+            $pengantaranData = [
+                'nama' => $request->input('nm'),
+                'pengantaran_id' => $request->input('pgnid'),
+                'alamat' => $request->input('alm'),
+                'no_telp' => $request->input('ntlp'),
+            ];
+
+            // Cek apakah ini adalah penyimpanan data baru atau pembaruan data pengguna
+            if ($request->filled('user_id')) {
+                // Jika ada user_id, ini adalah pembaruan data pengguna
+                $pengantaran = pgn::findOrFail($request->input('user_id'));
+                $pengantaran->update($pengantaranData);
+                $message = 'Data pengantaran berhasil diperbarui!';
+            } else {
+                // Jika tidak ada user_id, ini adalah penyimpanan data baru
+                pgn::create($pengantaranData);
+                $message = 'Data pengantaran berhasil disimpan!';
+            }
+
+            return response()->json(['message' => $message]);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -107,6 +152,17 @@ class PengantaranController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Cari pengguna berdasarkan ID
+        $pengantaran = pgn::find($id);
+
+        // Periksa apakah pengguna ditemukan
+        if (!$pengantaran) {
+            return response()->json(['message' => 'Pengantaran tidak ditemukan'], 404);
+        }
+
+        // Hapus pengguna
+        $pengantaran->delete();
+
+        return response()->json(['message' => 'Pengantaran berhasil dihapus']);
     }
 }

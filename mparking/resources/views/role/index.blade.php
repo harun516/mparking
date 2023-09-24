@@ -147,7 +147,7 @@
                 console.log('Tombol "Hapus" diklik. roleId:', roleId);
                 Swal.fire({
                     title: 'Konfirmasi',
-                    text: 'Apakah Anda yakin ingin menghapus pengguna ini?',
+                    text: 'Apakah Anda yakin ingin menghapus role ini?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Ya, Hapus',
@@ -277,9 +277,12 @@
             $('#resetForm').click(function() {
                 // Kosongkan semua field dalam formulir
                 $('#roleform')[0].reset();
+                // Reset nilai input user_id menjadi kosong
+                $('#user_id').val('');
+
             });
         });
-        // Finisih Ubah-Button
+        // Finisih Ubah-Button dengan fungsi simpan dan update
 
         // Start fitur Tambah
         document.addEventListener("DOMContentLoaded", function() {

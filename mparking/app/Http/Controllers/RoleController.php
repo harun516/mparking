@@ -101,11 +101,11 @@ class RoleController extends Controller
                 // Jika ada user_id, ini adalah pembaruan data pengguna
                 $role = rl::findOrFail($request->input('user_id'));
                 $role->update($roleData);
-                $message = 'Data pengguna berhasil diperbarui!';
+                $message = 'Data role berhasil diperbarui!';
             } else {
                 // Jika tidak ada user_id, ini adalah penyimpanan data baru
                 rl::create($roleData);
-                $message = 'Data pengguna berhasil disimpan!';
+                $message = 'Data role berhasil disimpan!';
             }
 
             return response()->json(['message' => $message]);
@@ -151,12 +151,12 @@ class RoleController extends Controller
 
         // Periksa apakah pengguna ditemukan
         if (!$role) {
-            return response()->json(['message' => 'Pengguna tidak ditemukan'], 404);
+            return response()->json(['message' => 'Role tidak ditemukan'], 404);
         }
 
         // Hapus pengguna
         $role->delete();
 
-        return response()->json(['message' => 'Pengguna berhasil dihapus']);
+        return response()->json(['message' => 'Role berhasil dihapus']);
     }
 }

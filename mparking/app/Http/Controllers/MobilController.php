@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\mobil as mbl;
+use Illuminate\Http\Request;
 
 class MobilController extends Controller
 {
@@ -19,6 +19,11 @@ class MobilController extends Controller
         return view('mobil.index'); // Menampilkan view 'dashboard.index'
     }
 
+    public function get(Request $request)
+    {
+        $mobils = mbl::all(); // Gantilah ini dengan query untuk mengambil data Anda
+        return response()->json(['data' => $mobils]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -73,7 +78,46 @@ class MobilController extends Controller
      */
     public function show($id)
     {
-        //
+        $mobil = mbl::find($id);
+        return response()->json($mobil);
+    }
+
+    public function simpan(Request $request)
+    {
+        try {
+            // Validasi input form
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'mblid' => 'required|string|max:255',
+                'tns' => 'required|string|max:255',
+                'kbk' => 'required|string|max:255',
+            ]);
+
+            // Ambil data pengguna dari input form
+            $mobilData = [
+                'nama' => $request->input('nama'),
+                'mobil_id' => $request->input('mblid'),
+                'tonase' => $request->input('tns'),
+                'kubikasi' => $request->input('kbk'),
+            ];
+
+            // Cek apakah ini adalah penyimpanan data baru atau pembaruan data pengguna
+            if ($request->filled('user_id')) {
+                // Jika ada user_id, ini adalah pembaruan data pengguna
+                $mobil = mbl::findOrFail($request->input('user_id'));
+                $mobil->update($mobilData);
+                $message = 'Data mobil berhasil diperbarui!';
+            } else {
+                // Jika tidak ada user_id, ini adalah penyimpanan data baru
+                mbl::create($mobilData);
+                $message = 'Data mobil berhasil disimpan!';
+            }
+
+            return response()->json(['message' => $message]);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -107,6 +151,17 @@ class MobilController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Cari pengguna berdasarkan ID
+        $mobil = mbl::find($id);
+
+        // Periksa apakah pengguna ditemukan
+        if (!$mobil) {
+            return response()->json(['message' => 'Mobil tidak ditemukan'], 404);
+        }
+
+        // Hapus pengguna
+        $mobil->delete();
+
+        return response()->json(['message' => 'Mobil berhasil dihapus']);
     }
 }

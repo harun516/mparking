@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\transporter as tpr;
+use Illuminate\Http\Request;
 
 class TransporterController extends Controller
 {
@@ -17,6 +17,12 @@ class TransporterController extends Controller
         // Logika atau data apa pun yang ingin Anda proses sebelum menampilkan view
 
         return view('transporter.index'); // Menampilkan view 'dashboard.index'
+    }
+
+    public function get(Request $request)
+    {
+        $transporter = tpr::all(); // Gantilah ini dengan query untuk mengambil data Anda
+        return response()->json(['data' => $transporter]);
     }
 
     /**
@@ -73,7 +79,46 @@ class TransporterController extends Controller
      */
     public function show($id)
     {
-        //
+        $transporter = tpr::find($id);
+        return response()->json($transporter);
+    }
+
+    public function simpan(Request $request)
+    {
+        try {
+            // Validasi input form
+            $request->validate([
+                'nm' => 'required|string|max:255',
+                'tprid' => 'required|string|max:255',
+                'alm' => 'required|string|max:255',
+                'ntlp' => 'required|string|max:255',
+            ]);
+
+            // Ambil data pengguna dari input form
+            $transporterData = [
+                'nama' => $request->input('nm'),
+                'transporter_id' => $request->input('tprid'),
+                'alamat' => $request->input('alm'),
+                'no_telp' => $request->input('ntlp'),
+            ];
+
+            // Cek apakah ini adalah penyimpanan data baru atau pembaruan data pengguna
+            if ($request->filled('user_id')) {
+                // Jika ada user_id, ini adalah pembaruan data pengguna
+                $transporter = tpr::findOrFail($request->input('user_id'));
+                $transporter->update($transporterData);
+                $message = 'Data transporter berhasil diperbarui!';
+            } else {
+                // Jika tidak ada user_id, ini adalah penyimpanan data baru
+                tpr::create($transporterData);
+                $message = 'Data transporter berhasil disimpan!';
+            }
+
+            return response()->json(['message' => $message]);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -107,6 +152,17 @@ class TransporterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Cari pengguna berdasarkan ID
+        $transporter = tpr::find($id);
+
+        // Periksa apakah pengguna ditemukan
+        if (!$transporter) {
+            return response()->json(['message' => 'Transporter tidak ditemukan'], 404);
+        }
+
+        // Hapus pengguna
+        $transporter->delete();
+
+        return response()->json(['message' => 'Transporter berhasil dihapus']);
     }
 }

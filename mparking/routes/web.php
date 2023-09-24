@@ -34,23 +34,33 @@ Route::get('/user/show/{id}', 'UserController@show')->name('user.show');
 Route::post('/user/simpan', 'UserController@simpan')->name('user.simpan');
 Route::delete('/user/hapus/{id}', 'UserController@destroy')->name('user.destroy');
 
-
 // role
 Route::get('/role', 'RoleController@index')->name('role.index');
-// Route::post('/role/store', 'RoleController@store')->name('role.store');
 Route::get('/role/get', 'RoleController@get')->name('role.get');
 Route::get('/role/show/{id}', 'RoleController@show')->name('role.show');
 Route::post('/role/simpan', 'RoleController@simpan')->name('role.simpan');
 Route::delete('/role/hapus/{id}', 'RoleController@destroy')->name('role.destroy');
 
+// mobil
 Route::get('/mobil', 'MobilController@index')->name('mobil.index');
-Route::post('/mobil/store', 'MobilController@store')->name('mobil.store');
+Route::get('/mobil/get', 'MobilController@get')->name('mobil.get');
+Route::get('/mobil/show/{id}', 'MobilController@show')->name('mobil.show');
+Route::post('/mobil/simpan', 'MobilController@simpan')->name('mobil.simpan');
+Route::delete('/mobil/hapus/{id}', 'MobilController@destroy')->name('mobil.destroy');
 
+// pengantaran
 Route::get('/pengantaran', 'PengantaranController@index')->name('pengantaran.index');
-Route::post('/pengantaran/store', 'PengantaranController@store')->name('pengantaran.store');
+Route::get('/pengantaran/get', 'PengantaranController@get')->name('pengantaran.get');
+Route::get('/pengantaran/show/{id}', 'PengantaranController@show')->name('pengantaran.show');
+Route::post('/pengantaran/simpan', 'PengantaranController@simpan')->name('pengantaran.simpan');
+Route::delete('/pengantaran/hapus/{id}', 'PengantaranController@destroy')->name('pengantaran.destroy');
 
+// transporter
 Route::get('/transporter', 'TransporterController@index')->name('transporter.index');
-Route::post('/transporter/store', 'TransporterController@store')->name('transporter.store');
+Route::get('/transporter/get', 'TransporterController@get')->name('transporter.get');
+Route::get('/transporter/show/{id}', 'TransporterController@show')->name('transporter.show');
+Route::post('/transporter/simpan', 'TransporterController@simpan')->name('transporter.simpan');
+Route::delete('/transporter/hapus/{id}', 'TransporterController@destroy')->name('transporter.destroy');
 
 });
 

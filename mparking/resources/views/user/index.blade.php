@@ -58,7 +58,6 @@
                             <button type="button" id="resetForm" class="btn btn-danger">
                                 <i class="fas fa-times"></i> Batal
                             </button>
-
                         </div>
                     </form>
                 </div>
@@ -309,9 +308,10 @@
             $('#resetForm').click(function() {
                 // Kosongkan semua field dalam formulir
                 $('#userform')[0].reset();
-
                 // Kosongkan nilai yang dipilih dalam combo box dengan Select2
                 $('#rlid').val(null).trigger('change');
+                // Reset nilai input user_id menjadi kosong
+                $('#user_id').val('');
             });
         });
         // Finisih Ubah-Button

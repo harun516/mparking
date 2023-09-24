@@ -18,6 +18,7 @@ class UserController extends Controller
     {
         // combobox
         $roles = rl::select('role_id', 'nama')->get();
+
         return view('user.index', compact('roles'));
 
     }
@@ -28,7 +29,6 @@ class UserController extends Controller
         // return response()->json(['data' => $users]);
 
         $users = usr::with('role')->get();
-        
 
         // Loop melalui pengguna dan tambahkan kolom "nama_role" berdasarkan ID peran
         foreach ($users as $user) {
@@ -57,33 +57,33 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            // Validasi input jika diperlukan
-            $validatedData = $request->validate([
-                'rlid' => 'required',
-                'nm' => 'required',
-                'eml' => 'required',
-                'ktsd' => 'required',
-            ]);
+        // try {
+        //     // Validasi input jika diperlukan
+        //     $validatedData = $request->validate([
+        //         'rlid' => 'required',
+        //         'nm' => 'required',
+        //         'eml' => 'required',
+        //         'ktsd' => 'required',
+        //     ]);
 
-            // Proses penyimpanan data ke dalam database menggunakan model dengan alias
-            $user = new usr; // Menggunakan alias
-            $user->nama = $request->nm;
-            $user->role_id = $request->rlid;
-            $user->email = $request->eml;
-            // Hashing password sebelum menyimpannya
-            $user->password = Hash::make($request->ktsd);
-            $user->save();
+        //     // Proses penyimpanan data ke dalam database menggunakan model dengan alias
+        //     $user = new usr; // Menggunakan alias
+        //     $user->nama = $request->nm;
+        //     $user->role_id = $request->rlid;
+        //     $user->email = $request->eml;
+        //     // Hashing password sebelum menyimpannya
+        //     $user->password = Hash::make($request->ktsd);
+        //     $user->save();
 
-            // Respon untuk AJAX (Anda dapat mengirim pesan JSON sebagai balasan)
-            return response()->json(['message' => 'Data berhasil disimpan']);
-        } catch (QueryException $e) {
-            // Tangani kesalahan database
-            return response()->json(['error' => 'Terjadi kesalahan pada database'], 500);
-        } catch (\Exception $e) {
-            // Tangani kesalahan umum lainnya
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        //     // Respon untuk AJAX (Anda dapat mengirim pesan JSON sebagai balasan)
+        //     return response()->json(['message' => 'Data berhasil disimpan']);
+        // } catch (QueryException $e) {
+        //     // Tangani kesalahan database
+        //     return response()->json(['error' => 'Terjadi kesalahan pada database'], 500);
+        // } catch (\Exception $e) {
+        //     // Tangani kesalahan umum lainnya
+        //     return response()->json(['error' => $e->getMessage()], 500);
+        // }
     }
 
     /**
@@ -94,8 +94,52 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = usr::find($id);
+        return response()->json($user);
     }
+
+    public function simpan(Request $request)
+    {
+        try {
+            // Validasi input form
+            $request->validate([
+                'nm' => 'required|string|max:255',
+                'rlid' => 'required|string|max:255', 
+                'eml' => 'required|email|unique:users,email,' . $request->input('user_id'),
+                'ktsd' => 'nullable|string|min:6',
+            ]);
+    
+            // Ambil data pengguna dari input form
+            $userData = [
+                'nama' => $request->input('nm'),
+                'role_id' => $request->input('rlid'),
+                'email' => $request->input('eml'),
+            ];
+    
+            // Jika ada kata sandi baru, hash kata sandi tersebut dan tambahkan ke data pengguna
+            if ($request->filled('ktsd')) {
+                $userData['password'] = Hash::make($request->input('ktsd'));
+            }
+    
+            // Cek apakah ini adalah penyimpanan data baru atau pembaruan data pengguna
+            if ($request->filled('user_id')) {
+                // Jika ada user_id, ini adalah pembaruan data pengguna
+                $user = usr::findOrFail($request->input('user_id'));
+                $user->update($userData);
+                $message = 'Data pengguna berhasil diperbarui!';
+            } else {
+                // Jika tidak ada user_id, ini adalah penyimpanan data baru
+                usr::create($userData);
+                $message = 'Data pengguna berhasil disimpan!';
+            }
+    
+            return response()->json(['message' => $message]);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+    
 
     /**
      * Show the form for editing the specified resource.

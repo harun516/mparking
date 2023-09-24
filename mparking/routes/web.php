@@ -62,6 +62,13 @@ Route::get('/transporter/show/{id}', 'TransporterController@show')->name('transp
 Route::post('/transporter/simpan', 'TransporterController@simpan')->name('transporter.simpan');
 Route::delete('/transporter/hapus/{id}', 'TransporterController@destroy')->name('transporter.destroy');
 
+//kendaraan
+Route::get('/kendaraan', 'KendaraanController@index')->name('kendaraan.index');
+Route::get('/kendaraan/get', 'KendaraanController@get')->name('kendaraan.get');
+Route::get('/kendaraan/show/{id}', 'KendaraanController@show')->name('kendaraan.show');
+Route::post('/kendaraan/simpan', 'KendaraanController@simpan')->name('kendaraan.simpan');
+Route::delete('/kendaraan/hapus/{id}', 'KendaraanController@destroy')->name('kendaraan.destroy');
+
 });
 
 

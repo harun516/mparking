@@ -25,7 +25,7 @@ class kendaraan extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function transporter(): BelongsTo
+    public function transporter()
     {
         return $this->belongsTo(transporter::class, 'transporter_id', 'transporter_id');
     }
@@ -35,7 +35,7 @@ class kendaraan extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function mobil(): BelongsTo
+    public function mobil()
     {
         return $this->belongsTo(mobil::class, 'mobil_id', 'mobil_id');
     }

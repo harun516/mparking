@@ -96,6 +96,41 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item menu-close">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-sign-in-alt"></i>
+                            <p>
+                                Inbound
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-car nav-icon"></i>
+                                    <p>Registrasi Mobil</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-truck-loading nav-icon"></i>
+                                    <p>Start Unloading</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-truck nav-icon"></i>
+                                    <p>Finish Unloading</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shipping-fast nav-icon"></i>
+                                    <p>Document Finish</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
 

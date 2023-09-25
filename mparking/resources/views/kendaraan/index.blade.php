@@ -82,7 +82,7 @@
                                     <div class="form-group">
                                         <label for="thnpr">Tahun Produksi</label>
                                         <input type="number" class="form-control" id="thnpr" min="1900"
-                                            max="2099" step="1" placeholder="Masukkan tahun Produksi" required>
+                                            max="2099" step="1" placeholder="Masukkan tahun Produksi">
                                     </div>
                                     <div class="form-group">
                                         <label for="brcd">Barcode</label>
@@ -459,7 +459,11 @@
 
             // Periksa apakah user_id tidak kosong
             if (userId.trim() === '') {
-                alert("ID tidak ditemukan, silahkan klik ikon ubah.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ID tidak ditemukan',
+                    text: 'Silahkan klik ikon ubah.'
+                });
                 return; // Hentikan eksekusi jika user_id kosong
             }
 

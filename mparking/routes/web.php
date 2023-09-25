@@ -67,6 +67,8 @@ Route::get('/kendaraan', 'KendaraanController@index')->name('kendaraan.index');
 Route::get('/kendaraan/get', 'KendaraanController@get')->name('kendaraan.get');
 Route::get('/kendaraan/show/{id}', 'KendaraanController@show')->name('kendaraan.show');
 Route::post('/kendaraan/simpan', 'KendaraanController@simpan')->name('kendaraan.simpan');
+Route::get('/kendaraan/cetak/{id}', 'KendaraanController@cetakBarcode')->name('kendaraan.cetak');
+Route::get('/kendaraan/validate/{id}', 'KendaraanController@validateUserId')->name('kendaraan.validate');
 Route::delete('/kendaraan/hapus/{id}', 'KendaraanController@destroy')->name('kendaraan.destroy');
 
 });

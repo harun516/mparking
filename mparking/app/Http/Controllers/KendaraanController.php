@@ -121,6 +121,28 @@ class KendaraanController extends Controller
         }
     }
 
+    public function validateUserId($id) {
+        $kendaraanExists = kndr::where('id', $id)->exists();
+    
+        return response()->json(['kendaraanExists' => $kendaraanExists]);
+
+        dd($kendaraanExists);
+    }
+
+    public function cetakBarcode($id)
+    {
+        // Ambil data user berdasarkan user_id
+        $kendaraan = kndr::find($id);
+
+        // Validasi jika user tidak ditemukan
+        if (!$kendaraan) {
+            return abort(404); // Tampilkan halaman 404 jika user tidak ditemukan
+        }
+
+        // Kirim data user ke tampilan cetak_barcode.blade.php
+        return view('kendaraan.cetak_barcode', compact('kendaraan'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

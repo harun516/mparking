@@ -100,7 +100,7 @@
                             <button type="button" id="resetForm" class="btn btn-danger">
                                 <i class="fas fa-times"></i> Batal
                             </button>
-                            <button id="printBarcodeButton" class="btn btn-dark">
+                            <button id="cetakBarcodeButton" class="btn btn-dark">
                                 <i class="fas fa-print"></i> Cetak Barcode
                             </button>
                         </div>
@@ -135,8 +135,12 @@
             var table = $('#example1').DataTable({
                 "ajax": "{{ route('kendaraan.get') }}",
                 "columns": [{
+                        "data": "barcode",
+                        "title": "<div style='text-align:center;'>Barcode</div>",
+                    },
+                    {
                         "data": "kendaraan_id",
-                        "title": "<div style='text-align:center;'>Role ID</div>",
+                        "title": "<div style='text-align:center;'>Kendaraan ID</div>",
                     },
                     {
                         "data": "nama_transporter",
@@ -449,43 +453,22 @@
         // Finisih Ubah-Button
 
         // Start Cetak Barcode
-        // Event listener untuk tombol "Cetak Barcode"
-        document.getElementById("printBarcodeButton").addEventListener("click", function() {
-            // Dapatkan elemen gambar barcode
-            var barcodeImage = document.getElementById("barcodeImage");
+        document.getElementById("cetakBarcodeButton").addEventListener("click", function() {
+            // Dapatkan user_id dari input hidden
+            var userId = document.getElementById("user_id").value;
 
-            // Buat elemen gambar sementara untuk mencetak
-            var tempImage = new Image();
-            tempImage.src = barcodeImage.src;
+            // Periksa apakah user_id tidak kosong
+            if (userId.trim() === '') {
+                alert("ID tidak ditemukan, silahkan klik ikon ubah.");
+                return; // Hentikan eksekusi jika user_id kosong
+            }
 
-            // Tunggu hingga gambar dimuat sebelum mencetak
-            tempImage.onload = function() {
-                var transporterName = $('#tprid').val(); // Ganti dengan data yang sesuai
-                var kendaraanName = $('#mblid').val(); // Ganti dengan data yang sesuai
-                var nomorPolisi = $('#npl').val(); // Ganti dengan data yang sesuai
+            // Buat URL cetak barcode dengan user_id
+            var url = "{{ route('kendaraan.cetak', ':userId') }}".replace(':userId', userId);
 
-                var printWindow = window.open('', '', 'width=1000,height=700');
-                printWindow.document.open();
-                printWindow.document.write('<html><head><title>Form Data Kendaraan</title></head><body>');
-                printWindow.document.write('<center><h3>Form Data Kendaraan</h3>');
-                printWindow.document.write('===========================<br>');
-                printWindow.document.write('<img src="' + tempImage.src + '" alt="Barcode"><br>');
-                printWindow.document.write('===========================<br>');
-                printWindow.document.write('<p>Nama Transporter: ' + transporterName + '</p>');
-                printWindow.document.write('<p>Nama Kendaraan: ' + kendaraanName + '</p>');
-                printWindow.document.write('<p>Nomor Polisi: ' + nomorPolisi + '</p>');
-                printWindow.document.write('<hr>');
-                printWindow.document.write(
-                    '<center>Harap dicetak dan dilaminating agar tidak mudah rusak</center>');
-                printWindow.document.write('</body></html>');
-                printWindow.document.close();
-
-                // Mulai mencetak
-                printWindow.print();
-                printWindow.close();
-            };
+            // Buka halaman cetak barcode di tab baru
+            window.open(url, '_blank');
         });
-        // Finish Cetak barcode
 
         // Start fitur Tambah
         document.addEventListener("DOMContentLoaded", function() {

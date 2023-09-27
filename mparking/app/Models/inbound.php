@@ -11,9 +11,7 @@ class inbound extends Model
     protected $primaykey = 'id';
     protected $fillable = [
         'checkout_id',
-        'pengantaran_id',
-        'kendaraan_id',
-        'kode_parkir',
+        'barcode',
         'driver_nama',
         'driver_ktp',
         'driver_vaksin',
@@ -42,7 +40,7 @@ class inbound extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function pengantaran(): BelongsTo
+    public function pengantaran()
     {
         return $this->belongsTo(pengantaran::class, 'pengantaran_id', 'pengantaran_id');
     }
@@ -52,8 +50,22 @@ class inbound extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function kendaraan(): BelongsTo
+    public function kendaraan()
     {
-        return $this->belongsTo(kendaraan::class, 'kendaraan_id', 'kendaraan_id');
+        return $this->belongsTo(kendaraan::class, 'barcode', 'barcode');
+    }
+
+    /**
+     * Get the user that owns the inbound
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function transporter()
+    {
+        return $this->belongsTo(transporter::class, 'transporter_id', 'transporidter_id');
+    }
+    public function mobil()
+    {
+        return $this->belongsTo(mobil::class, 'mobil_id', 'id');
     }
 }

@@ -450,7 +450,7 @@
                 document.getElementById("barcodeImage").src = barcodeDataURL;
             });
         });
-        // Finisih Ubah-Button
+        // Start Ubah-Button dengan fungsi simpan dan update
 
         // Start Cetak Barcode
         document.getElementById("cetakBarcodeButton").addEventListener("click", function() {

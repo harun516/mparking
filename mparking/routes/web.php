@@ -71,6 +71,12 @@ Route::get('/kendaraan/cetak/{id}', 'KendaraanController@cetakBarcode')->name('k
 Route::get('/kendaraan/validate/{id}', 'KendaraanController@validateUserId')->name('kendaraan.validate');
 Route::delete('/kendaraan/hapus/{id}', 'KendaraanController@destroy')->name('kendaraan.destroy');
 
+//Inbound - kendaraan
+Route::get('/registrasimobil', 'InboundController@indexRegistrasi')->name('registrasimobil.index');
+Route::get('/registrasimobil/simpan', 'InboundController@simpanRegistrasi')->name('registrasimobil.simpan');
+Route::get('/registrasimobil/mobilbarcode/{barcode}', 'InboundController@mobilBarcode')->name('mobilbarcode.show');
+Route::post('/registrasimobil/getNamesById', 'InboundController@getNamesById')->name('get.names.by.id');
+
 });
 
 

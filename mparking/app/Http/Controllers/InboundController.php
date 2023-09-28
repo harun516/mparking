@@ -55,7 +55,7 @@ class InboundController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function simpan(Request $request)
+    public function simpanRegistrasi(Request $request)
     {
         try {
             // Validasi input form
@@ -64,36 +64,34 @@ class InboundController extends Controller
                 'sprnm' => 'required|string|max:255',
                 'nktp' => 'required|string|max:255',
                 'nvks' => 'required|string|max:255',
+                'nrfs' => 'required|string|max:255',
                 'note' => 'required|string|max:255',
                 'rgsby' => 'required|string|max:255',
             ]);
 
             // Mendapatkan nilai dari request
-            $simChecked = $request->input('sim') === 'ya' ? 1 : 0;
-            $stnkChecked = $request->input('stnk') === 'ya' ? 1 : 0;
-            $kirChecked = $request->input('kir') === 'ya' ? 1 : 0;
-            $tdkbrshChecked = $request->input('tdkbrsh') === 'ya' ? 1 : 0;
-            $brshChecked = $request->input('brsh') === 'ya' ? 1 : 0;
-            $bcrChecked = $request->input('bcr') === 'ya' ? 1 : 0;
-            $tdkbcrChecked = $request->input('tdkbcr') === 'ya' ? 1 : 0;
-            $bauChecked = $request->input('bau') === 'ya' ? 1 : 0;
-            $tidakbauChecked = $request->input('tidakbau') === 'ya' ? 1 : 0;
+            $simChecked = $request->input('simChecked');
+            $stnkChecked = $request->input('stnkChecked');
+            $kirChecked = $request->input('kirChecked');
 
+            $tdkbrshValue = $request->input('tdkbrshValue'); // Ini akan berisi "ya" atau "tidak" sesuai yang dipilih
+
+            $kdpkr = uniqid();
             // Ambil data pengguna dari input form
             $registrasiIbData = [
                 'barcode' => $request->input('brcd'),
-                'checkout_id' => $request->input('mblnm'),
-                'kode_parkir' => $request->input('tprnm'),
+                'checkout_id' => "1",
+                'kode_parkir' => $kdpkr,
                 'driver_nama' => $request->input('sprnm'),
                 'driver_ktp' => $request->input('nktp'),
                 'driver_vaksin' => $request->input('nvks'),
-                'no_refrensi' => $request->input('thnpr'),
+                'no_referensi' => $request->input('nrfs'),
                 'sim' => $simChecked,
                 'stnk' => $stnkChecked,
                 'kir' => $kirChecked,
-                'bersih' => $brshChecked,
-                'bocor' => $bcrChecked,
-                'bau' => $bauChecked,
+                'tidak_bersih' => $tdkbrshValue,
+                'bocor' => "ya",
+                'bau' => "ya",
                 'status' => "Registrasi Mobil",
                 'note' => $request->input('note'),
                 'register_by' => $request->input('rgsby'),

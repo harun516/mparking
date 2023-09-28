@@ -11,6 +11,8 @@ class inbound extends Model
     protected $primaykey = 'id';
     protected $fillable = [
         'checkout_id',
+        'kode_parkir',
+        'no_referensi',
         'barcode',
         'driver_nama',
         'driver_ktp',

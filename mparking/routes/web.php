@@ -73,10 +73,8 @@ Route::delete('/kendaraan/hapus/{id}', 'KendaraanController@destroy')->name('ken
 
 //Inbound - kendaraan
 Route::get('/registrasimobil', 'InboundController@indexRegistrasi')->name('registrasimobil.index');
-Route::get('/registrasimobil/simpan', 'InboundController@simpanRegistrasi')->name('registrasimobil.simpan');
+Route::post('/registrasimobil/simpan', 'InboundController@simpanRegistrasi')->name('registrasimobil.simpan');
 Route::get('/registrasimobil/mobilbarcode/{barcode}', 'InboundController@mobilBarcode')->name('mobilbarcode.show');
-Route::post('/registrasimobil/getNamesById', 'InboundController@getNamesById')->name('get.names.by.id');
-
 });
 
 

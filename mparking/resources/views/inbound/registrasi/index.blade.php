@@ -100,20 +100,23 @@
                                 <div class="col-sm-10">
                                     <fieldset>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="sim">
-                                            <label class="form-check-label" for="sim">
+                                            <input class="form-check-input" type="checkbox" id="simCheckbox"
+                                                name="simChecked" value="ya">
+                                            <label class="form-check-label" for="simCheckbox">
                                                 SIM
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="stnk">
-                                            <label class="form-check-label" for="stnk">
+                                            <input class="form-check-input" type="checkbox" id="stnkCheckbox"
+                                                name="stnkChecked" value="ya">
+                                            <label class="form-check-label" for="stnkCheckbox">
                                                 STNK
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="KIR">
-                                            <label class="form-check-label" for="kir">
+                                            <input class="form-check-input" type="checkbox" id="kirCheckbox"
+                                                name="kirChecked" value="ya">
+                                            <label class="form-check-label" for="kirCheckbox">
                                                 KIR
                                             </label>
                                         </div>
@@ -128,15 +131,15 @@
                                             <p>Tidak Bersih</p>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="ya"
-                                                    id="tdkbrsh">
-                                                <label class="form-check-label" for="tdkbrsh">
+                                                    id="ya_tdkbrsh" name="tdkbrsh">
+                                                <label class="form-check-label" for="ya_tdkbrsh">
                                                     Ya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="tidak"
-                                                    id="brsh">
-                                                <label class="form-check-label" for="brsh">
+                                                    id="tdk_tdkbrsh" name="tdkbrsh" checked>
+                                                <label class="form-check-label" for="tdk_tdkbrsh">
                                                     Tidak
                                                 </label>
                                             </div>
@@ -152,7 +155,7 @@
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="tidak"
-                                                    id="tdkbcr">
+                                                    id="tdkbcr" checked>
                                                 <label class="form-check-label" for="tdkbcr">
                                                     Tidak
                                                 </label>
@@ -169,7 +172,7 @@
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio"
-                                                    name="kondisi_kendaraan_bocor" value="tidak" id="tidak_bau">
+                                                    name="kondisi_kendaraan_bocor" value="tidak" id="tidak_bau" checked>
                                                 <label class="form-check-label" for="tidak_bau">
                                                     Tidak
                                                 </label>
@@ -238,10 +241,10 @@
                         // Isi nilai-nilai form dengan data pengguna yang diterima
                         $('#mblid').val(response
                             .mobilName
-                            ); // Isi dengan nama mobil yang sudah Anda dapatkan dari respons pertama
+                        ); // Isi dengan nama mobil yang sudah Anda dapatkan dari respons pertama
                         $('#tprid').val(response
                             .transporterName
-                            ); // Isi dengan nama transportasi yang sudah Anda dapatkan dari respons pertama
+                        ); // Isi dengan nama transportasi yang sudah Anda dapatkan dari respons pertama
                     },
                     error: function(xhr, status, error) {
                         // Tangani kesalahan
@@ -280,18 +283,25 @@
                 var note = $('#note').val();
                 var rgsby = $('#rgsby').val();
 
-                // Mendapatkan nilai dari checkbox Dokumen Kendaraan
-                var simChecked = document.getElementById("sim").checked;
-                var stnkChecked = document.getElementById("stnk").checked;
-                var kirChecked = document.getElementById("KIR").checked;
+                // Mendapatkan nilai dari checkbox SIM
+                var simChecked = document.getElementById("simCheckbox").checked ? 'ya' : 'tidak';
+
+                // Mendapatkan nilai dari checkbox STNK
+                var stnkChecked = document.getElementById("stnkCheckbox").checked ? 'ya' : 'tidak';
+
+                // Mendapatkan nilai dari checkbox KIR
+                var kirChecked = document.getElementById("kirCheckbox").checked ? 'ya' : 'tidak';
+
+                // Mendapatkan nilai dari radio button "Tidak Bersih"
+                var tdkbrshValue = $("input[name='tdkbrsh']:checked").val();
 
                 // Mendapatkan nilai dari radio button Kondisi Kendaraan
-                var tdkbrshChecked = document.getElementById("tdkbrsh").checked;
-                var brshChecked = document.getElementById("brsh").checked;
-                var bcrChecked = document.getElementById("bcr").checked;
-                var tdkbcrChecked = document.getElementById("tdkbcr").checked;
-                var bauChecked = document.getElementById("bau").checked;
-                var tidakbauChecked = document.getElementById("tidak_bau").checked;
+                // var tdkbrshChecked = document.getElementById("tdkbrsh").checked;
+                // var brshChecked = document.getElementById("brsh").checked;
+                // var bcrChecked = document.getElementById("bcr").checked;
+                // var tdkbcrChecked = document.getElementById("tdkbcr").checked;
+                // var bauChecked = document.getElementById("bau").checked;
+                // var tidakbauChecked = document.getElementById("tidak_bau").checked;
 
                 // Kirim permintaan AJAX untuk menyimpan atau mengupdate data pengguna
                 $.ajax({
@@ -304,17 +314,18 @@
                         "nktp": nktp,
                         "nvks": nvks,
                         "pgnid": pgnid,
+                        "nrfs": nrfs,
                         "note": note,
                         "rgsby": rgsby,
                         "simChecked": simChecked,
                         "stnkChecked": stnkChecked,
                         "kirChecked": kirChecked,
-                        "tdkbrshChecked": tdkbrshChecked,
-                        "brshChecked": brshChecked,
-                        "bcrChecked": bcrChecked,
-                        "tdkbcrChecked": tdkbcrChecked,
-                        "bauChecked": bauChecked,
-                        "tidakbauChecked": tidakbauChecked
+                        "tdkbrshValue": tdkbrshValue
+                        // "brshChecked": brshChecked,
+                        // "bcrChecked": bcrChecked,
+                        // "tdkbcrChecked": tdkbcrChecked,
+                        // "bauChecked": bauChecked,
+                        // "tidakbauChecked": tidakbauChecked
                     },
                     success: function(response) {
                         // Tangani respons sukses

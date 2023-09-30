@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-header">
                     </div>
-                    <form id="documentfinishform">
+                    <form id="startunloadingform">
                         <input type="hidden" id="user_id" name="user_id" value="" readonly>
                         <div class="card-body">
                             <div class="form-group row">
@@ -62,28 +62,14 @@
                                 <label for="gtpes" class="col-sm-2 col-form-label">Gate Proses</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="gtprs"
-                                        placeholder="Masukkan gate proses" readonly>
+                                        placeholder="Masukkan gate proses" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="chcby" class="col-sm-2 col-form-label">Checked By</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="chcby"
-                                        placeholder="Masukkan Checked By" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="grdc" class="col-sm-2 col-form-label">GR Docs</label>
-                                <div class="col-sm-10">
-                                    <input type="test" class="form-control" id="grdc" placeholder="Masukkan gr docs"
-                                        required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="dcby" class="col-sm-2 col-form-label">Document By</label>
-                                <div class="col-sm-10">
-                                    <input type="test" class="form-control" id="dcby"
-                                        placeholder="Masukkan document By" required>
+                                        placeholder="Masukkan checked By" required>
                                 </div>
                             </div>
                         </div>
@@ -143,12 +129,6 @@
                         $('#stts').val(response
                             .stts
                         );
-                        $('#gtprs').val(response
-                            .gtprs
-                        );
-                        $('#chcby').val(response
-                            .chcby
-                        );
                     },
                     error: function(xhr, status, error) {
                         // Tangani kesalahan
@@ -163,7 +143,7 @@
             }
 
             // Tambahkan event listener untuk form dengan id "userform"
-            $("#grdc, #grby").keydown(function(event) {
+            $("#stts, #gtprs, #chcby").keydown(function(event) {
                 // Periksa jika tombol Enter (kode tombol 13) ditekan
                 if (event.keyCode === 13) {
                     event.preventDefault(); // Mencegah tindakan bawaan form
@@ -180,18 +160,20 @@
             function simpanData() {
                 // Ambil data dari input form
                 var kdpkr = $('#kdpkr').val();
-                var grdc = $('#grdc').val();
-                var dcby = $('#dcby').val();
+                var stts = $('#stts').val();
+                var gtprs = $('#gtprs').val();
+                var chcby = $('#chcby').val();
 
                 // Kirim permintaan AJAX untuk menyimpan atau mengupdate data pengguna
                 $.ajax({
-                    url: "{{ route('documentfinish.simpan') }}", // Rute untuk menyimpan atau mengupdate data
+                    url: "{{ route('startunloading.simpan') }}", // Rute untuk menyimpan atau mengupdate data
                     type: 'POST',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         "kdpkr": kdpkr,
-                        "grdc": grdc,
-                        "dcby": dcby,
+                        "stts": stts,
+                        "gtprs": gtprs,
+                        "chcby": chcby,
                     },
                     success: function(response) {
                         // Tangani respons sukses

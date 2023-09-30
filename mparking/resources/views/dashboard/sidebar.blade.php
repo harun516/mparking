@@ -112,20 +112,67 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('startunloading.index') }}" class="nav-link">
                                     <i class="fas fa-truck-loading nav-icon"></i>
                                     <p>Start Unloading</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('finishunloading.index') }}" class="nav-link">
                                     <i class="fas fa-truck nav-icon"></i>
                                     <p>Finish Unloading</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('documentfinish.index') }}" class="nav-link">
                                     <i class="fas fa-shipping-fast nav-icon"></i>
+                                    <p>Document Finish</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item menu-close">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
+                            <p>
+                                Outbound
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-car nav-icon"></i>
+                                    <p>Registrasi Mobil</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Start Document</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-truck nav-icon"></i>
+                                    <p>Start Picking Process</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-truck-loading nav-icon"></i>
+                                    <p>Start Loading</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-check-circle nav-icon"></i>
+                                    <p>Finish Loading</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-clipboard-check nav-icon"></i>
                                     <p>Document Finish</p>
                                 </a>
                             </li>

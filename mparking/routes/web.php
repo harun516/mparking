@@ -75,6 +75,25 @@ Route::delete('/kendaraan/hapus/{id}', 'KendaraanController@destroy')->name('ken
 Route::get('/registrasimobil', 'InboundController@indexRegistrasi')->name('registrasimobil.index');
 Route::post('/registrasimobil/simpan', 'InboundController@simpanRegistrasi')->name('registrasimobil.simpan');
 Route::get('/registrasimobil/mobilbarcode/{barcode}', 'InboundController@mobilBarcode')->name('mobilbarcode.show');
+
+
+//inbound - get kode parkir
+Route::get('/kodeparkir/{kodeparkir}', 'InboundController@kodeparkir')->name('kodeparkir.show');
+
+//Inbound - start unloading
+Route::get('/startunloading', 'InboundController@indexStartUnloading')->name('startunloading.index');
+Route::post('/startunloading/simpan', 'InboundController@simpanStartUnloading')->name('startunloading.simpan');
+
+//Inbound - finish unloading
+Route::get('/finishunloading', 'InboundController@indexFinishUnloading')->name('finishunloading.index');
+Route::post('/finishunloading/simpan', 'InboundController@simpanFinishUnloading')->name('finishunloading.simpan');
+
+//Inbound - document finish
+Route::get('/documentfinish', 'InboundController@indexDocumentFinish')->name('documentfinish.index');
+Route::post('/documentfinish/simpan', 'InboundController@simpanDocumentFinish')->name('documentfinish.simpan');
+
+//inbound - get kode parkir
+Route::get('/kodeparkirout/{kodeparkir}', 'OutboundController@kodeparkir')->name('kodeparkirout.show');
 });
 
 

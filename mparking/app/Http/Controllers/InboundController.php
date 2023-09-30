@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\inbound as ibn;
 use App\Models\Kendaraan as kndr;
 use App\Models\pengantaran as pgn;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InboundController extends Controller
@@ -21,6 +22,22 @@ class InboundController extends Controller
         return view('inbound.registrasi.index', compact('pengantarans'));
     }
 
+    public function indexStartUnloading()
+    {
+        return view('inbound.start_unloading.index');
+    }
+
+    public function indexFinishUnloading()
+    {
+
+        return view('inbound.finish_unloading.index');
+    }
+
+    public function indexDocumentFinish()
+    {
+        return view('inbound.document_finish.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -29,6 +46,10 @@ class InboundController extends Controller
     public function mobilBarcode($barcode)
     {
         $registrasiIbn = kndr::where('barcode', $barcode)->first();
+
+        if (!$registrasiIbn) {
+            return response()->json(['error' => 'Barcode tidak ditemukan'], 404);
+        }
 
         // Cek jika data ditemukan
         if ($registrasiIbn) {
@@ -47,6 +68,38 @@ class InboundController extends Controller
             'mobilName' => $mobilName,
             'transporterName' => $transporterName,
         ]);
+
+        return response()->json($response);
+    }
+
+    public function kodeparkir($kodeparkir)
+    {
+        $startunloadings = ibn::where('kode_parkir', $kodeparkir)->first();
+
+        if (!$startunloadings) {
+            return response()->json(['error' => 'Kode parkir tidak ditemukan'], 404);
+        }
+
+        // Ambil barcode dari data yang ditemukan
+        $barcode = $startunloadings->barcode;
+
+        // Cari kendaraan berdasarkan barcode
+        $kendaraan = kndr::where('barcode', $barcode)->first();
+
+        if (!$kendaraan) {
+            return response()->json(['error' => 'No polisi tidak ditemukan'], 404);
+        }
+
+        return response()->json([
+            'nrfp' => $startunloadings->no_referensi,
+            'npls' => $kendaraan->no_pol, //kendaraan->no_pol
+            'stts' => $startunloadings->status,
+            'nmspr' => $startunloadings->driver_nama,
+            'chcby' => $startunloadings->checker_by,
+            'gtprs' => $startunloadings->gate,
+        ]);
+
+        return response()->json($response);
     }
 
     /**
@@ -55,6 +108,128 @@ class InboundController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function simpanStartUnloading(Request $request)
+    {
+        try {
+
+            // Definisikan pesan validasi khusus
+            $messages = [
+                'stts.required' => 'Field status harus diisi.',
+                'gtprs.required' => 'Field gate harus diisi.',
+                'chcby.required' => 'Field checker_by harus diisi.',
+            ];
+
+            // Validasi input form
+            $request->validate([
+                'stts' => 'required|string|max:255',
+                'gtprs' => 'required|string|max:255',
+                'chcby' => 'required|string|max:255',
+            ], $messages);
+
+            // Ambil waktu saat ini dalam zona waktu WIB (GMT+7)
+            $waktuStartUnloading = Carbon::now('Asia/Jakarta');
+
+            // Ambil data pengguna dari input form
+            $startunloadingbData = [
+                'status' => "Start Unloading",
+                'gate' => $request->input('gtprs'),
+                'checker_by' => $request->input('chcby'),
+                'waktu_start_unloading' => $waktuStartUnloading,
+            ];
+
+            // Ambil kode parkir dari input form
+            $kodeParkir = $request->input('kdpkr');
+            $startunloadings = ibn::where('kode_parkir', $kodeParkir)->first();
+
+            if (!$startunloadings) {
+                // Jika kode parkir tidak ditemukan, kirim pesan error
+                return response()->json(['error' => 'Kode parkir tidak ditemukan'], 404);
+            }
+
+            $startunloadings->update($startunloadingbData);
+            $message = 'Data start unloading berhasil diperbarui!';
+            return response()->json(['message' => $message]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangani kesalahan validasi
+            $errors = $e->validator->errors()->all();
+
+            return response()->json(['error' => implode(' & ', $errors)], 422);
+        } catch (\Exception $e) {
+            // Tangani kesalahan lainnya
+            return response()->json(['error' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function simpanFinishUnloading(Request $request)
+    {
+        try {
+
+            // Ambil waktu saat ini dalam zona waktu WIB (GMT+7)
+            $waktuStartUnloading = Carbon::now('Asia/Jakarta');
+
+            // Ambil data pengguna dari input form
+            $startunloadingbData = [
+                'status' => "Finish Unloading",
+                'waktu_finish_unloading' => $waktuStartUnloading,
+            ];
+
+            // Ambil kode parkir dari input form
+            $kodeParkir = $request->input('kdpkr');
+            $startunloadings = ibn::where('kode_parkir', $kodeParkir)->first();
+            $startunloadings->update($startunloadingbData);
+            $message = 'Data finish unloading berhasil diperbarui!';
+            return response()->json(['message' => $message]);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function simpanDocumentFinish(Request $request)
+    {
+        try {
+
+            // Definisikan pesan validasi khusus
+            $messages = [
+                'grdc.required' => 'Field GR document harus diisi.',
+                'dcby.required' => 'Field document by harus diisi.',
+            ];
+
+            // Validasi input form
+            $request->validate([
+                'grdc' => 'required|string|max:255',
+                'dcby' => 'required|string|max:255',
+            ], $messages);
+
+            // Ambil waktu saat ini dalam zona waktu WIB (GMT+7)
+            $waktuStartUnloading = Carbon::now('Asia/Jakarta');
+
+            // Ambil data pengguna dari input form
+            $startunloadingbData = [
+                'status' => "Document Finish",
+                'waktu_finish_document' => $waktuStartUnloading,
+                'gr_cod' => $request->input('grdc'),
+                'document_by' => $request->input('dcby'),
+            ];
+
+            // Ambil kode parkir dari input form
+            $kodeParkir = $request->input('kdpkr');
+            $startunloadings = ibn::where('kode_parkir', $kodeParkir)->first();
+            $startunloadings->update($startunloadingbData);
+            $message = 'Data simpan document berhasil diperbarui!';
+            return response()->json(['message' => $message]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangani kesalahan validasi
+            $errors = $e->validator->errors()->all();
+
+            return response()->json(['error' => implode(' & ', $errors)], 422);
+        } catch (\Exception $e) {
+            // Tangani kesalahan lainnya
+            return response()->json(['error' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+
     public function simpanRegistrasi(Request $request)
     {
         try {
@@ -74,7 +249,9 @@ class InboundController extends Controller
             $stnkChecked = $request->input('stnkChecked');
             $kirChecked = $request->input('kirChecked');
 
-            $tdkbrshValue = $request->input('tdkbrshValue'); // Ini akan berisi "ya" atau "tidak" sesuai yang dipilih
+            $tdkbrshValue = $request->input('tdkbrshValue');
+            $bauValue = $request->input('bauValue');
+            $bcrValue = $request->input('bcrValue');
 
             $kdpkr = uniqid();
             // Ambil data pengguna dari input form
@@ -90,8 +267,8 @@ class InboundController extends Controller
                 'stnk' => $stnkChecked,
                 'kir' => $kirChecked,
                 'tidak_bersih' => $tdkbrshValue,
-                'bocor' => "ya",
-                'bau' => "ya",
+                'bocor' => $bcrValue,
+                'bau' => $bauValue,
                 'status' => "Registrasi Mobil",
                 'note' => $request->input('note'),
                 'register_by' => $request->input('rgsby'),

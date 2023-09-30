@@ -148,14 +148,14 @@
                                             <p>Bocor</p>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="ya"
-                                                    id="bcr">
+                                                    id="bcr" name="bcr">
                                                 <label class="form-check-label" for="bcr">
                                                     Ya
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="tidak"
-                                                    id="tdkbcr" checked>
+                                                    id="tdkbcr"name="bcr" checked>
                                                 <label class="form-check-label" for="tdkbcr">
                                                     Tidak
                                                 </label>
@@ -165,14 +165,14 @@
                                             <p>Bau</p>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="ya"
-                                                    id="bau">
+                                                    id="bau" name="bau">
                                                 <label class="form-check-label" for="ya_bau">
                                                     Ya
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="kondisi_kendaraan_bocor" value="tidak" id="tidak_bau" checked>
+                                                <input class="form-check-input" type="radio" value="tidak"
+                                                    id="tdkbau" name="bau" checked>
                                                 <label class="form-check-label" for="tidak_bau">
                                                     Tidak
                                                 </label>
@@ -248,10 +248,11 @@
                     },
                     error: function(xhr, status, error) {
                         // Tangani kesalahan
+                        var errorMessage = xhr.responseJSON.error;
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "Terjadi kesalahan: " + error,
+                            text: errorMessage,
                         });
                     }
                 });
@@ -283,25 +284,15 @@
                 var note = $('#note').val();
                 var rgsby = $('#rgsby').val();
 
-                // Mendapatkan nilai dari checkbox SIM
+                // Mendapatkan nilai dari checkbox
                 var simChecked = document.getElementById("simCheckbox").checked ? 'ya' : 'tidak';
-
-                // Mendapatkan nilai dari checkbox STNK
                 var stnkChecked = document.getElementById("stnkCheckbox").checked ? 'ya' : 'tidak';
-
-                // Mendapatkan nilai dari checkbox KIR
                 var kirChecked = document.getElementById("kirCheckbox").checked ? 'ya' : 'tidak';
 
-                // Mendapatkan nilai dari radio button "Tidak Bersih"
+                // Mendapatkan nilai dari radio button
                 var tdkbrshValue = $("input[name='tdkbrsh']:checked").val();
-
-                // Mendapatkan nilai dari radio button Kondisi Kendaraan
-                // var tdkbrshChecked = document.getElementById("tdkbrsh").checked;
-                // var brshChecked = document.getElementById("brsh").checked;
-                // var bcrChecked = document.getElementById("bcr").checked;
-                // var tdkbcrChecked = document.getElementById("tdkbcr").checked;
-                // var bauChecked = document.getElementById("bau").checked;
-                // var tidakbauChecked = document.getElementById("tidak_bau").checked;
+                var bcrValue = $("input[name='bcr']:checked").val();
+                var bauValue = $("input[name='bau']:checked").val();
 
                 // Kirim permintaan AJAX untuk menyimpan atau mengupdate data pengguna
                 $.ajax({
@@ -320,12 +311,9 @@
                         "simChecked": simChecked,
                         "stnkChecked": stnkChecked,
                         "kirChecked": kirChecked,
-                        "tdkbrshValue": tdkbrshValue
-                        // "brshChecked": brshChecked,
-                        // "bcrChecked": bcrChecked,
-                        // "tdkbcrChecked": tdkbcrChecked,
-                        // "bauChecked": bauChecked,
-                        // "tidakbauChecked": tidakbauChecked
+                        "tdkbrshValue": tdkbrshValue,
+                        "bcrValue": bcrValue,
+                        "bauValue": bauValue
                     },
                     success: function(response) {
                         // Tangani respons sukses
@@ -361,6 +349,6 @@
                 $('#user_id').val('');
             });
         });
-        // Start Ubah-Button dengan fungsi simpan dan update
+        // Finish simpan-Button
     </script>
 @endsection

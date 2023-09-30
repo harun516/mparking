@@ -71,11 +71,11 @@ Route::get('/kendaraan/cetak/{id}', 'KendaraanController@cetakBarcode')->name('k
 Route::get('/kendaraan/validate/{id}', 'KendaraanController@validateUserId')->name('kendaraan.validate');
 Route::delete('/kendaraan/hapus/{id}', 'KendaraanController@destroy')->name('kendaraan.destroy');
 
-//Inbound - kendaraan
+
+//Inbound - registrasi
 Route::get('/registrasimobil', 'InboundController@indexRegistrasi')->name('registrasimobil.index');
 Route::post('/registrasimobil/simpan', 'InboundController@simpanRegistrasi')->name('registrasimobil.simpan');
 Route::get('/registrasimobil/mobilbarcode/{barcode}', 'InboundController@mobilBarcode')->name('mobilbarcode.show');
-
 
 //inbound - get kode parkir
 Route::get('/kodeparkir/{kodeparkir}', 'InboundController@kodeparkir')->name('kodeparkir.show');
@@ -92,8 +92,23 @@ Route::post('/finishunloading/simpan', 'InboundController@simpanFinishUnloading'
 Route::get('/documentfinish', 'InboundController@indexDocumentFinish')->name('documentfinish.index');
 Route::post('/documentfinish/simpan', 'InboundController@simpanDocumentFinish')->name('documentfinish.simpan');
 
-//inbound - get kode parkir
+
+//outbound - registrasi
+Route::get('/registrasimobilout', 'OutboundController@indexRegistrasi')->name('registrasimobilout.index');
+Route::post('/registrasimobilout/simpan', 'OutboundController@simpanRegistrasi')->name('registrasimobilout.simpan');
+Route::get('/registrasimobilout/mobilbarcode/{barcode}', 'OutboundController@mobilBarcode')->name('mobilbarcodeout.show');
+
+//outbound - get kode parkir
 Route::get('/kodeparkirout/{kodeparkir}', 'OutboundController@kodeparkir')->name('kodeparkirout.show');
+
+//outbound - start document
+Route::get('/startdocumentout', 'OutboundController@indexStartDocument')->name('startdocumentout.index');
+Route::post('/startdocumentout/simpan', 'OutboundController@simpanStartDocument')->name('startdocumentout.simpan');
+
+//outbound - start picking process
+Route::get('/startpickingprocess', 'OutboundController@indexStartPickingProcess')->name('startpickingprocess.index');
+Route::post('/startpickingprocess/simpan', 'OutboundController@simpanStartPickingProcess')->name('startpickingprocess.simpan');
+
 });
 
 

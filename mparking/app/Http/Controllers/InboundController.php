@@ -19,7 +19,7 @@ class InboundController extends Controller
     {
         // combobox
         $pengantarans = pgn::select('pengantaran_id', 'nama')->get();
-        return view('inbound.registrasi.index', compact('pengantarans'));
+        return view('inbound.registrasi.index', compact('pengantarans')); 
     }
 
     public function indexStartUnloading()
@@ -259,6 +259,7 @@ class InboundController extends Controller
                 'barcode' => $request->input('brcd'),
                 'checkout_id' => "1",
                 'kode_parkir' => $kdpkr,
+                'pengantaran_id' => $request->input('pgnid'),
                 'driver_nama' => $request->input('sprnm'),
                 'driver_ktp' => $request->input('nktp'),
                 'driver_vaksin' => $request->input('nvks'),

@@ -99,71 +99,6 @@
             }
         }
     </style>
-    {{-- <script nonce="7d0581b1-6407-4186-a0f2-f444dea1e57e">
-        (function(w, d) {
-            ! function(j, k, l, m) {
-                j[l] = j[l] || {};
-                j[l].executed = [];
-                j.zaraz = {
-                    deferred: [],
-                    listeners: []
-                };
-                j.zaraz.q = [];
-                j.zaraz._f = function(n) {
-                    return async function() {
-                        var o = Array.prototype.slice.call(arguments);
-                        j.zaraz.q.push({
-                            m: n,
-                            a: o
-                        })
-                    }
-                };
-                for (const p of ["track", "set", "debug"]) j.zaraz[p] = j.zaraz._f(p);
-                j.zaraz.init = () => {
-                    var q = k.getElementsByTagName(m)[0],
-                        r = k.createElement(m),
-                        s = k.getElementsByTagName("title")[0];
-                    s && (j[l].t = k.getElementsByTagName("title")[0].text);
-                    j[l].x = Math.random();
-                    j[l].w = j.screen.width;
-                    j[l].h = j.screen.height;
-                    j[l].j = j.innerHeight;
-                    j[l].e = j.innerWidth;
-                    j[l].l = j.location.href;
-                    j[l].r = k.referrer;
-                    j[l].k = j.screen.colorDepth;
-                    j[l].n = k.characterSet;
-                    j[l].o = (new Date).getTimezoneOffset();
-                    if (j.dataLayer)
-                        for (const w of Object.entries(Object.entries(dataLayer).reduce(((x, y) => ({
-                                ...x[1],
-                                ...y[1]
-                            })), {}))) zaraz.set(w[0], w[1], {
-                            scope: "page"
-                        });
-                    j[l].q = [];
-                    for (; j.zaraz.q.length;) {
-                        const z = j.zaraz.q.shift();
-                        j[l].q.push(z)
-                    }
-                    r.defer = !0;
-                    for (const A of [localStorage, sessionStorage]) Object.keys(A || {}).filter((C => C.startsWith(
-                        "_zaraz_"))).forEach((B => {
-                        try {
-                            j[l]["z_" + B.slice(7)] = JSON.parse(A.getItem(B))
-                        } catch {
-                            j[l]["z_" + B.slice(7)] = A.getItem(B)
-                        }
-                    }));
-                    r.referrerPolicy = "origin";
-                    r.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(j[l])));
-                    q.parentNode.insertBefore(r, q)
-                };
-                ["complete", "interactive"].includes(k.readyState) ? zaraz.init() : j.addEventListener(
-                    "DOMContentLoaded", zaraz.init)
-            }(w, d, "zarazData", "script");
-        })(window, document);
-    </script> --}}
 
 </head>
 
@@ -262,7 +197,7 @@
     <script
         src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/fh-3.4.0/kt-2.10.0/r-2.5.0/rg-1.4.0/rr-1.4.1/sc-2.2.0/sb-1.5.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.js">
     </script>
-    <script>
+    {{-- <script>
         // Mendapatkan URL saat ini
         var currentUrl = window.location.href;
 
@@ -286,7 +221,7 @@
                 }
             }
         });
-    </script>
+    </script> --}}
 
     <script>
         // Saat halaman dimuat

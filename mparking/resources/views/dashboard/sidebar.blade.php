@@ -88,6 +88,7 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="nav-item">
                         <a href="{{ route('kendaraan.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-cube"></i>
@@ -96,6 +97,7 @@
                             </p>
                         </a>
                     </li>
+
                     <li class="nav-item menu-close">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-sign-in-alt"></i>
@@ -131,6 +133,7 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="nav-item menu-close">
                         <a href="#" class="nav-link">
                             <i class="fas fa-sign-out-alt nav-icon"></i>
@@ -141,19 +144,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('registrasimobilout.index') }}" class="nav-link">
                                     <i class="fas fa-car nav-icon"></i>
                                     <p>Registrasi Mobil</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('startdocumentout.index') }}" class="nav-link">
                                     <i class="fas fa-file-alt nav-icon"></i>
                                     <p>Start Document</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('startpickingprocess.index') }}" class="nav-link">
                                     <i class="fas fa-truck nav-icon"></i>
                                     <p>Start Picking Process</p>
                                 </a>

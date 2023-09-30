@@ -10,13 +10,13 @@ class outbound extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $fillable = [
-        'kendaraan_id',
+        'barcode',
         'checkout_id',
         'kode_parkir',
         'driver_nama',
         'driver_ktp',
         'driver_vaksin',
-        'no_refrensi',
+        'no_referensi',
         'sim',
         'stnk',
         'kir',
@@ -46,6 +46,6 @@ class outbound extends Model
      */
     public function kendaraan(): BelongsTo
     {
-        return $this->belongsTo(kendaraan::class, 'kendaraan_id', 'kendaraan_id');
+        return $this->belongsTo(kendaraan::class, 'barcode', 'barcode');
     }
 }

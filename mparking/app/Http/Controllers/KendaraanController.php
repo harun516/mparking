@@ -121,14 +121,6 @@ class KendaraanController extends Controller
         }
     }
 
-    public function validateUserId($id) {
-        $kendaraanExists = kndr::where('id', $id)->exists();
-    
-        return response()->json(['kendaraanExists' => $kendaraanExists]);
-
-        dd($kendaraanExists);
-    }
-
     public function cetakBarcode($id)
     {
         // Ambil data user berdasarkan user_id

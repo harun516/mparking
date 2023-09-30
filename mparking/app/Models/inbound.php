@@ -13,6 +13,7 @@ class inbound extends Model
         'checkout_id',
         'kode_parkir',
         'no_referensi',
+        'pengantaran_id',
         'barcode',
         'driver_nama',
         'driver_ktp',

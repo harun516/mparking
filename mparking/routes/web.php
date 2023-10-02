@@ -109,6 +109,25 @@ Route::post('/startdocumentout/simpan', 'OutboundController@simpanStartDocument'
 Route::get('/startpickingprocess', 'OutboundController@indexStartPickingProcess')->name('startpickingprocess.index');
 Route::post('/startpickingprocess/simpan', 'OutboundController@simpanStartPickingProcess')->name('startpickingprocess.simpan');
 
+//outbound - start loading
+Route::get('/startloading', 'OutboundController@indexStartLoading')->name('startloading.index');
+Route::post('/startloading/simpan', 'OutboundController@simpanStartLoading')->name('startloading.simpan');
+
+//outbound - finish loading
+Route::get('/finishloading', 'OutboundController@indexFinishLoading')->name('finishloading.index');
+Route::post('/finishloading/simpan', 'OutboundController@simpanFinishLoading')->name('finishloading.simpan');
+
+//outbound - document finish
+Route::get('/documentfinishout', 'OutboundController@indexDocumentFinishOut')->name('documentfinishout.index');
+Route::post('/documentfinishout/simpan', 'OutboundController@simpanDocumentFinishOut')->name('documentfinishout.simpan');
+
+
+//checkout - get kode parkir
+Route::get('/kodeparkircheckout/{kodeparkir}', 'CheckoutController@kodeparkir')->name('kodeparkircheckout.show');
+
+//checkout - checkout
+Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+Route::post('/checkout/simpan', 'CheckoutController@simpanCheckout')->name('checkout.simpan');
 });
 
 

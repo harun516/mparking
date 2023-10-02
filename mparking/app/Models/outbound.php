@@ -32,6 +32,7 @@ class outbound extends Model
         'waktu_start_picking',
         'waktu_start_loading',
         'waktu_finish_loading',
+        'waktu_document_finish',
         'waktu_keluar',
         'picking_by',
         'register_by',

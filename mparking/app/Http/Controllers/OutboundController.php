@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\kendaraan as kndr;
 use App\Models\outbound as obn;
+use App\Models\mobil as mbl;
+use App\Models\transporter as tpr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -27,6 +29,21 @@ class OutboundController extends Controller
     public function indexStartPickingProcess()
     {
         return view('outbound.start_picking_process.index');
+    }
+
+    public function indexStartLoading()
+    {
+        return view('outbound.start_loading.index');
+    }
+
+    public function indexFinishLoading()
+    {
+        return view('outbound.finish_loading.index');
+    }
+
+    public function indexDocumentFinishOut()
+    {
+        return view('outbound.document_finish.index');
     }
 
     /**
@@ -77,15 +94,32 @@ class OutboundController extends Controller
         // Cari kendaraan berdasarkan barcode
         $kendaraan = kndr::where('barcode', $barcode)->first();
 
+        // Ambil mobil_id dari data yang ditemukan
+        $mbl_id = $kendaraan->mobil_id;
+        
+        // Cari mobil berdasarkan mobil_id
+        $mobil = mbl::where('mobil_id', $mbl_id)->first();
+
+        // Ambil transporter_id dari data yang ditemukan
+        $tpr_id = $kendaraan->transporter_id;
+        
+        // Cari transporter berdasarkan transporter_id
+        $transporter = tpr::where('transporter_id', $tpr_id)->first();
+
         if (!$kendaraan) {
             return response()->json(['error' => 'No polisi tidak ditemukan'], 404);
         }
 
         return response()->json([
             'nrfp' => $kodeparkirs->no_referensi,
-            'npls' => $kendaraan->no_pol, //kendaraan->no_pol
-            'stts' => $kodeparkirs->status,
+            'npls' => $kendaraan->no_pol,
             'nmspr' => $kodeparkirs->driver_nama,
+            'kndrid' => $mobil->nama,
+            'tprid' => $transporter->nama,
+            'stts' => $kodeparkirs->status,
+            'gtprs' => $kodeparkirs->gate,
+            'pcby' => $kodeparkirs->picking_by,
+            'ldby' => $kodeparkirs->loading_by,
             'bdlid' => $kodeparkirs->bundle_id,
             'nodo' => $kodeparkirs->no_do,
         ]);
@@ -250,6 +284,136 @@ class OutboundController extends Controller
 
             $startdocuments->update($startdocumentData);
             $message = 'Data start picking process berhasil diperbarui!';
+            return response()->json(['message' => $message]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangani kesalahan validasi
+            $errors = $e->validator->errors()->all();
+
+            return response()->json(['error' => implode(' & ', $errors)], 422);
+        } catch (\Exception $e) {
+            // Tangani kesalahan lainnya
+            return response()->json(['error' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function simpanStartLoading(Request $request)
+    {
+        try {
+
+            // Definisikan pesan validasi khusus
+            $messages = [
+                'ldby.required' => 'Field loading by harus diisi.',
+            ];
+
+            // Validasi input form
+            $request->validate([
+                'ldby' => 'required|string|max:255',
+            ], $messages);
+
+            // Ambil waktu saat ini dalam zona waktu WIB (GMT+7)
+            $waktuStartDocument = Carbon::now('Asia/Jakarta');
+
+            // Ambil data pengguna dari input form
+            $startdocumentData = [
+                'status' => "Start Loading",
+                'loading_by' => $request->input('ldby'),
+                'waktu_start_loading' => $waktuStartDocument,
+            ];
+
+            // Ambil kode parkir dari input form
+            $kodeParkir = $request->input('kdpkr');
+            $startdocuments = obn::where('kode_parkir', $kodeParkir)->first();
+
+            if (!$startdocuments) {
+                // Jika kode parkir tidak ditemukan, kirim pesan error
+                return response()->json(['error' => 'Kode parkir tidak ditemukan'], 404);
+            }
+
+            $startdocuments->update($startdocumentData);
+            $message = 'Data start loading berhasil diperbarui!';
+            return response()->json(['message' => $message]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangani kesalahan validasi
+            $errors = $e->validator->errors()->all();
+
+            return response()->json(['error' => implode(' & ', $errors)], 422);
+        } catch (\Exception $e) {
+            // Tangani kesalahan lainnya
+            return response()->json(['error' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+    
+    public function simpanFinishLoading(Request $request)
+    {
+        try {
+
+            // Ambil waktu saat ini dalam zona waktu WIB (GMT+7)
+            $waktuStartDocument = Carbon::now('Asia/Jakarta');
+
+            // Ambil data pengguna dari input form
+            $startdocumentData = [
+                'status' => "Finish Loading",
+                'waktu_finish_loading' => $waktuStartDocument,
+            ];
+
+            // Ambil kode parkir dari input form
+            $kodeParkir = $request->input('kdpkr');
+            $startdocuments = obn::where('kode_parkir', $kodeParkir)->first();
+
+            if (!$startdocuments) {
+                // Jika kode parkir tidak ditemukan, kirim pesan error
+                return response()->json(['error' => 'Kode parkir tidak ditemukan'], 404);
+            }
+
+            $startdocuments->update($startdocumentData);
+            $message = 'Data finish loading berhasil diperbarui!';
+            return response()->json(['message' => $message]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangani kesalahan validasi
+            $errors = $e->validator->errors()->all();
+
+            return response()->json(['error' => implode(' & ', $errors)], 422);
+        } catch (\Exception $e) {
+            // Tangani kesalahan lainnya
+            return response()->json(['error' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function simpanDocumentFinishOut(Request $request)
+    {
+        try {
+
+            // Definisikan pesan validasi khusus
+            $messages = [
+                'dcby.required' => 'Field document by harus diisi.',
+            ];
+
+            // Validasi input form
+            $request->validate([
+                'dcby' => 'required|string|max:255',
+            ], $messages);
+
+            // Ambil waktu saat ini dalam zona waktu WIB (GMT+7)
+            $waktuStartDocument = Carbon::now('Asia/Jakarta');
+
+            // Ambil data pengguna dari input form
+            $startdocumentData = [
+                'status' => "Document Finish - Outbound",
+                'document_by' => $request->input('dcby'),
+                'waktu_document_finish' => $waktuStartDocument,
+            ];
+
+            // Ambil kode parkir dari input form
+            $kodeParkir = $request->input('kdpkr');
+            $startdocuments = obn::where('kode_parkir', $kodeParkir)->first();
+
+            if (!$startdocuments) {
+                // Jika kode parkir tidak ditemukan, kirim pesan error
+                return response()->json(['error' => 'Kode parkir tidak ditemukan'], 404);
+            }
+
+            $startdocuments->update($startdocumentData);
+            $message = 'Data document finish berhasil diperbarui!';
             return response()->json(['message' => $message]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Tangani kesalahan validasi

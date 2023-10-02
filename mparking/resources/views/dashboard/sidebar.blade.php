@@ -162,25 +162,35 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('startloading.index') }}" class="nav-link">
                                     <i class="fas fa-truck-loading nav-icon"></i>
                                     <p>Start Loading</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('finishloading.index') }}" class="nav-link">
                                     <i class="fas fa-check-circle nav-icon"></i>
                                     <p>Finish Loading</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('documentfinishout.index') }}" class="nav-link">
                                     <i class="fas fa-clipboard-check nav-icon"></i>
                                     <p>Document Finish</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('checkout.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>
+                                Checkout Process
+                            </p>
+                        </a>
+                    </li>
+
                 </ul>
             </nav>
 

@@ -77,7 +77,8 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nrfsi" class="col-sm-2 col-form-label">Nomor Referensi Surat Jalan</label>
+                                <label for="nrfsi" class="col-sm-2 col-form-label">Nomor Referensi
+                                    Surat Jalan</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="nrfsi"
                                         placeholder="Masukkan nomor refrensi surat jalan" required>

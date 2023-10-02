@@ -163,7 +163,7 @@
             }
 
             // Tambahkan event listener untuk form dengan id "userform"
-            $("#grdc, #grby").keydown(function(event) {
+            $("#grdc, #dcby").keydown(function(event) {
                 // Periksa jika tombol Enter (kode tombol 13) ditekan
                 if (event.keyCode === 13) {
                     event.preventDefault(); // Mencegah tindakan bawaan form

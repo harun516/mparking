@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-header">
                     </div>
-                    <form id="startdocumentform">
+                    <form id="startloadingform">
                         <input type="hidden" id="user_id" name="user_id" value="" readonly>
                         <div class="card-body">
                             <div class="form-group row">
@@ -59,17 +59,31 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="gtprs" class="col-sm-2 col-form-label">Gate Process</label>
+                                <div class="col-sm-10">
+                                    <input type="test" class="form-control" id="gtprs"
+                                        placeholder="Masukkan gate process" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="bdlid" class="col-sm-2 col-form-label">Bundle ID</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="bdlid"
-                                        placeholder="Masukkan bundle id" required>
+                                        placeholder="Masukkan bundle id" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nodo" class="col-sm-2 col-form-label">Nomor DO</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="nodo"
-                                        placeholder="Masukkan nomor do" required>
+                                        placeholder="Masukkan nomor do" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ldby" class="col-sm-2 col-form-label">Loading By</label>
+                                <div class="col-sm-10">
+                                    <input type="test" class="form-control" id="ldby"
+                                        placeholder="Masukkan loading by" required>
                                 </div>
                             </div>
                         </div>
@@ -129,6 +143,15 @@
                         $('#stts').val(response
                             .stts
                         );
+                        $('#bdlid').val(response
+                            .bdlid
+                        );
+                        $('#nodo').val(response
+                            .nodo
+                        );
+                        $('#gtprs').val(response
+                            .gtprs
+                        );
                     },
                     error: function(xhr, status, error) {
                         // Tangani kesalahan
@@ -143,7 +166,7 @@
             }
 
             // Tambahkan event listener untuk form dengan id "userform"
-            $("#bdlid, #nodo").keydown(function(event) {
+            $("#ldby").keydown(function(event) {
                 // Periksa jika tombol Enter (kode tombol 13) ditekan
                 if (event.keyCode === 13) {
                     event.preventDefault(); // Mencegah tindakan bawaan form
@@ -160,18 +183,16 @@
             function simpanData() {
                 // Ambil data dari input form
                 var kdpkr = $('#kdpkr').val();
-                var bdlid = $('#bdlid').val();
-                var nodo = $('#nodo').val();
+                var ldby = $('#ldby').val();
 
                 // Kirim permintaan AJAX untuk menyimpan atau mengupdate data pengguna
                 $.ajax({
-                    url: "{{ route('startdocumentout.simpan') }}", // Rute untuk menyimpan atau mengupdate data
+                    url: "{{ route('startloading.simpan') }}", // Rute untuk menyimpan atau mengupdate data
                     type: 'POST',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         "kdpkr": kdpkr,
-                        "bdlid": bdlid,
-                        "nodo": nodo,
+                        "ldby": ldby,
                     },
                     success: function(response) {
                         // Tangani respons sukses
@@ -200,7 +221,7 @@
             // Event listener untuk tombol "Batal"
             $('#resetForm').click(function() {
                 // Kosongkan semua field dalam formulir
-                $('#startdocumentform')[0].reset();
+                $('#startloadingform')[0].reset();
                 // Reset nilai input user_id menjadi kosong
                 $('#user_id').val('');
             });

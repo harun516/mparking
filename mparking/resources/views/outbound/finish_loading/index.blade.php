@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-header">
                     </div>
-                    <form id="startdocumentform">
+                    <form id="finishloadingform">
                         <input type="hidden" id="user_id" name="user_id" value="" readonly>
                         <div class="card-body">
                             <div class="form-group row">
@@ -52,6 +52,20 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="kndrid" class="col-sm-2 col-form-label">jenis Kendaraan</label>
+                                <div class="col-sm-10">
+                                    <input type="test" class="form-control" id="kndrid"
+                                        placeholder="Masukkan jenis kendaraan" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tprid" class="col-sm-2 col-form-label">Transporter</label>
+                                <div class="col-sm-10">
+                                    <input type="test" class="form-control" id="tprid"
+                                        placeholder="Masukkan transporter" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="stts" class="col-sm-2 col-form-label">Status</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="stts" placeholder="Masukkan status"
@@ -59,17 +73,38 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="gtprs" class="col-sm-2 col-form-label">Gate Process</label>
+                                <div class="col-sm-10">
+                                    <input type="test" class="form-control" id="gtprs"
+                                        placeholder="Masukkan gate process" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="pcby" class="col-sm-2 col-form-label">Picking By</label>
+                                <div class="col-sm-10">
+                                    <input type="test" class="form-control" id="pcby"
+                                        placeholder="Masukkan picking by" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ldby" class="col-sm-2 col-form-label">Loading By</label>
+                                <div class="col-sm-10">
+                                    <input type="test" class="form-control" id="ldby"
+                                        placeholder="Masukkan loading by" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="bdlid" class="col-sm-2 col-form-label">Bundle ID</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="bdlid"
-                                        placeholder="Masukkan bundle id" required>
+                                        placeholder="Masukkan bundle id" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nodo" class="col-sm-2 col-form-label">Nomor DO</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="nodo"
-                                        placeholder="Masukkan nomor do" required>
+                                        placeholder="Masukkan nomor do" readonly>
                                 </div>
                             </div>
                         </div>
@@ -126,9 +161,31 @@
                         $('#nmspr').val(response
                             .nmspr
                         );
+                        $('#kndrid').val(response
+                            .kndrid
+                        );
+                        $('#tprid').val(response
+                            .tprid
+                        );
                         $('#stts').val(response
                             .stts
                         );
+                        $('#gtprs').val(response
+                            .gtprs
+                        );
+                        $('#pcby').val(response
+                            .pcby
+                        );
+                        $('#ldby').val(response
+                            .ldby
+                        );
+                        $('#bdlid').val(response
+                            .bdlid
+                        );
+                        $('#nodo').val(response
+                            .nodo
+                        );
+
                     },
                     error: function(xhr, status, error) {
                         // Tangani kesalahan
@@ -142,15 +199,6 @@
                 });
             }
 
-            // Tambahkan event listener untuk form dengan id "userform"
-            $("#bdlid, #nodo").keydown(function(event) {
-                // Periksa jika tombol Enter (kode tombol 13) ditekan
-                if (event.keyCode === 13) {
-                    event.preventDefault(); // Mencegah tindakan bawaan form
-                    simpanData(); // Panggil fungsi simpanData() untuk menyimpan data
-                }
-            });
-
             // Event handler untuk tombol "Simpan"
             $("#simpanData").click(function() {
                 simpanData();
@@ -160,18 +208,14 @@
             function simpanData() {
                 // Ambil data dari input form
                 var kdpkr = $('#kdpkr').val();
-                var bdlid = $('#bdlid').val();
-                var nodo = $('#nodo').val();
 
                 // Kirim permintaan AJAX untuk menyimpan atau mengupdate data pengguna
                 $.ajax({
-                    url: "{{ route('startdocumentout.simpan') }}", // Rute untuk menyimpan atau mengupdate data
+                    url: "{{ route('finishloading.simpan') }}", // Rute untuk menyimpan atau mengupdate data
                     type: 'POST',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         "kdpkr": kdpkr,
-                        "bdlid": bdlid,
-                        "nodo": nodo,
                     },
                     success: function(response) {
                         // Tangani respons sukses
@@ -200,7 +244,7 @@
             // Event listener untuk tombol "Batal"
             $('#resetForm').click(function() {
                 // Kosongkan semua field dalam formulir
-                $('#startdocumentform')[0].reset();
+                $('#finishloadingform')[0].reset();
                 // Reset nilai input user_id menjadi kosong
                 $('#user_id').val('');
             });

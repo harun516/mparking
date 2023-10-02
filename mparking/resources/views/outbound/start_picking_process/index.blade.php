@@ -30,8 +30,8 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nrfp" class="col-sm-2 col-form-label">Nomor Refrensi
-                                    Pengiriman</label>
+                                <label for="nrfp" class="col-sm-2 col-form-label">Nomor Referensi
+                                    Surat Jalan</label>
                                 <div class="col-sm-10">
                                     <input type="test" class="form-control" id="nrfp"
                                         placeholder="Masukkan nomor refrensi pengiriman" readonly>

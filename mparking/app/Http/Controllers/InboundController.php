@@ -207,9 +207,9 @@ class InboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startunloadingbData = [
-                'status' => "Document Finish",
+                'status' => "Document Finish - Inbound",
                 'waktu_finish_document' => $waktuStartUnloading,
-                'gr_cod' => $request->input('grdc'),
+                'gr_code' => $request->input('grdc'),
                 'document_by' => $request->input('dcby'),
             ];
 

@@ -182,6 +182,30 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item menu-close">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-book nav-icon"></i>
+                            <p>
+                                Report
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('reportinbound.index') }}" class="nav-link">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Report Inbound</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('reportoutbound.index') }}" class="nav-link">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                    <p>Report Outbound</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
                         <a href="{{ route('checkout.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-shopping-cart"></i>

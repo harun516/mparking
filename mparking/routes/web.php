@@ -17,14 +17,15 @@ Route::get('/', function () {
     return view('index');
 })->middleware([]);
 
-Route::get('/test', function () {
-    return 'Test Route';
-})->middleware('bypassAuth');
 
-// Route::get('/nimda', [KendaraanController::class, 'index'])->name('dashboard.index')->middleware([]);
 
 Route::namespace('App\Http\Controllers')->group(function () {
+
+//dashboard
 Route::get('/nimda', 'Controller@index')->name('dashboard.index');
+Route::get('/nimda/get', 'Controller@get')->name('dashboard.get');
+Route::delete('/nimda/hapus/{kode_parkir}', 'Controller@destroy')->name('transaksi.destroy');
+Route::get('/nimda/lihat/{kode_parkir}', 'Controller@getKendaraan')->name('transaksi.lihat');
 
 // user
 Route::get('/user', 'UserController@index')->name('user.index');
@@ -128,6 +129,16 @@ Route::get('/kodeparkircheckout/{kodeparkir}', 'CheckoutController@kodeparkir')-
 //checkout - checkout
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 Route::post('/checkout/simpan', 'CheckoutController@simpanCheckout')->name('checkout.simpan');
+
+
+//report - inbound
+Route::get('/report', 'ReportController@indexinbound')->name('reportinbound.index');
+// Route::post('/checkout/simpan', 'ReportController@simpanCheckout')->name('checkout.simpan');
+
+//report - outbound
+Route::get('/reportout', 'ReportController@indexoutbound')->name('reportoutbound.index');
+// Route::post('/checkout/simpan', 'ReportController@simpanCheckout')->name('checkout.simpan');
+
 });
 
 

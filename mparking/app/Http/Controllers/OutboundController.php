@@ -172,7 +172,7 @@ class OutboundController extends Controller
                 'tidak_bersih' => $tdkbrshValue,
                 'bocor' => $bcrValue,
                 'bau' => $bauValue,
-                'status' => "Registrasi Mobil",
+                'status' => "Registrasi Mobil - Outbound",
                 'note' => $request->input('note'),
                 'register_by' => $request->input('rgsby'),
             ];
@@ -217,7 +217,7 @@ class OutboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startdocumentData = [
-                'status' => "Start Document",
+                'status' => "Start Documen - Outboundt",
                 'bundle_id' => $request->input('bdlid'),
                 'no_do' => $request->input('nodo'),
                 'waktu_start_document' => $waktuStartDocument,
@@ -267,7 +267,7 @@ class OutboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startdocumentData = [
-                'status' => "Start Picking Process",
+                'status' => "Start Picking Process - Outbound",
                 'gate' => $request->input('gtprs'),
                 'picking_by' => $request->input('pcby'),
                 'waktu_start_picking' => $waktuStartDocument,
@@ -315,7 +315,7 @@ class OutboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startdocumentData = [
-                'status' => "Start Loading",
+                'status' => "Start Loading - Outbound",
                 'loading_by' => $request->input('ldby'),
                 'waktu_start_loading' => $waktuStartDocument,
             ];
@@ -352,7 +352,7 @@ class OutboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startdocumentData = [
-                'status' => "Finish Loading",
+                'status' => "Finish Loading - Outbound",
                 'waktu_finish_loading' => $waktuStartDocument,
             ];
 

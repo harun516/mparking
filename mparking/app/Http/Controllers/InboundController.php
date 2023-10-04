@@ -19,7 +19,7 @@ class InboundController extends Controller
     {
         // combobox
         $pengantarans = pgn::select('pengantaran_id', 'nama')->get();
-        return view('inbound.registrasi.index', compact('pengantarans')); 
+        return view('inbound.registrasi.index', compact('pengantarans'));
     }
 
     public function indexStartUnloading()
@@ -132,7 +132,7 @@ class InboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startunloadingbData = [
-                'status' => "Start Unloading",
+                'status' => "Start Unloading - Inbound",
                 'gate' => $request->input('gtprs'),
                 'checker_by' => $request->input('chcby'),
                 'waktu_start_unloading' => $waktuStartUnloading,
@@ -170,7 +170,7 @@ class InboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startunloadingbData = [
-                'status' => "Finish Unloading",
+                'status' => "Finish Unloading - Inbound",
                 'waktu_finish_unloading' => $waktuStartUnloading,
             ];
 
@@ -270,9 +270,10 @@ class InboundController extends Controller
                 'tidak_bersih' => $tdkbrshValue,
                 'bocor' => $bcrValue,
                 'bau' => $bauValue,
-                'status' => "Registrasi Mobil",
+                'status' => "Registrasi Mobil - Inbound",
                 'note' => $request->input('note'),
                 'register_by' => $request->input('rgsby'),
+
             ];
 
             // Cek apakah ini adalah penyimpanan data baru atau pembaruan data pengguna

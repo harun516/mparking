@@ -102,7 +102,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse layout-footer-fixed">
+<body class="hold-transition sidebar-mini sidebar-fixed layout-footer-fixed">
 
     <div class="wrapper">
 

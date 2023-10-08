@@ -22,19 +22,19 @@ class Controller extends BaseController
     {
         // Menghitung jumlah baris dengan table inbound
         $inbound1 = ibn::where('checkout_id', 1)->count();
-        $rgsibn = ibn::where('status', 'Registrasi Mobil')->count();
-        $stribn = ibn::where('status', 'Start Unloading')->count();
-        $fnsibn = ibn::where('status', 'Finish Unloading')->count();
+        $rgsibn = ibn::where('status', 'Registrasi Mobil - Inbound')->count();
+        $stribn = ibn::where('status', 'Start Unloading - Inbound')->count();
+        $fnsibn = ibn::where('status', 'Finish Unloading - Inbound')->count();
         $dcibn = ibn::where('status', 'Document Finish - Inbound')->count();
         $inbound2 = ibn::where('checkout_id', 2)->count();
 
         // Menghitung jumlah baris dengan table outbound
         $outbound1 = obn::where('checkout_id', 1)->count();
-        $rgsobn = obn::where('status', 'Registrasi Mobil')->count();
-        $strdcobn = obn::where('status', 'Start Document')->count();
-        $strpcobn = obn::where('status', 'Start Picking Process')->count();
-        $strldobn = obn::where('status', 'Start Loading')->count();
-        $fnsdobn = obn::where('status', 'Finish Loading')->count();
+        $rgsobn = obn::where('status', 'Registrasi Mobil - Outbound')->count();
+        $strdcobn = obn::where('status', 'Start Document - Outbound')->count();
+        $strpcobn = obn::where('status', 'Start Picking Process - Outbound')->count();
+        $strldobn = obn::where('status', 'Start Loading - Outbound')->count();
+        $fnsdobn = obn::where('status', 'Finish Loading - Outbound')->count();
         $dcobn = obn::where('status', 'Document Finish - Outbound')->count();
         $outbound2 = obn::where('checkout_id', 2)->count();
 

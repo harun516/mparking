@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="website icon" type="png" href="{{ asset('mparking\adminlte\admin-lte\dist\img\logo.png') }}">
     {{-- otomatis sesuai button sidebar --}}
     <title id="document-title"></title>
     {{-- Font --}}
@@ -20,8 +21,6 @@
     {{-- icheck --}}
     <link rel="stylesheet"
         href="{{ asset('mparking\adminlte\admin-lte\plugins\icheck-bootstrap\icheck-bootstrap.min.css') }}">
-    {{-- map --}}
-    <link rel="stylesheet" href="{{ asset('mparking\adminlte\admin-lte\plugins\jqvmap\jqvmap.min.css') }}">
     {{-- scrollbars --}}
     <link rel="stylesheet"
         href="{{ asset('mparking\adminlte\admin-lte\plugins\overlayScrollbars\css\OverlayScrollbars.min.css') }}">
@@ -102,7 +101,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse layout-footer-fixed">
 
     <div class="wrapper">
 
@@ -154,22 +153,10 @@
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
-    <script>
-        $(function() {
-            bsCustomFileInput.init();
-        });
-    </script>
     {{-- sweetalert2 --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\sweetalert2\sweetalert2.all.min.js') }}"></script>
     {{-- Bootstrap --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\bootstrap\js\bootstrap.bundle.min.js') }}"></script>
-    {{-- chart --}}
-    <script src="{{ asset('mparking\adminlte\admin-lte\plugins\chart.js\Chart.min.js') }}"></script>
-    {{-- sparkline --}}
-    <script src="{{ asset('mparking\adminlte\admin-lte\plugins\sparklines\sparkline.js') }}"></script>
-    {{-- map --}}
-    <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jqvmap\jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jqvmap\maps\jquery.vmap.usa.js') }}"></script>
     {{-- knob --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\jquery-knob\jquery.knob.min.js') }}"></script>
     {{-- moment --}}
@@ -187,8 +174,6 @@
     </script>
     {{-- adminlte --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\dist\js\adminlte.js?v=3.2.0') }}"></script>
-    {{-- dashboard --}}
-    <script src="{{ asset('mparking\adminlte\admin-lte\dist\js\pages\dashboard.js') }}"></script>
     {{-- select2 --}}
     <script src="{{ asset('mparking\adminlte\admin-lte\plugins\select2\js\select2.full.min.js') }}"></script>
     {{-- dataTables --}}
@@ -197,32 +182,7 @@
     <script
         src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/fh-3.4.0/kt-2.10.0/r-2.5.0/rg-1.4.0/rr-1.4.1/sc-2.2.0/sb-1.5.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.js">
     </script>
-    {{-- <script>
-        // Mendapatkan URL saat ini
-        var currentUrl = window.location.href;
-
-        // Mendapatkan semua elemen menu
-        var menuItems = document.querySelectorAll('.nav-link');
-
-        // Loop melalui setiap elemen menu
-        menuItems.forEach(function(menuItem) {
-            // Mendapatkan href dari elemen menu
-            var menuUrl = menuItem.getAttribute('href');
-
-            // Memeriksa apakah URL saat ini cocok dengan href elemen menu
-            if (currentUrl.indexOf(menuUrl) !== -1) {
-                // Jika cocok, tambahkan kelas 'active' pada elemen menu
-                menuItem.classList.add('active');
-
-                // Jika menu ini dalam submenu, buka menu induk (jika ada)
-                var parentMenu = menuItem.closest('.nav-item.menu-close');
-                if (parentMenu) {
-                    parentMenu.classList.add('menu-open');
-                }
-            }
-        });
-    </script> --}}
-
+    
     <script>
         // Saat halaman dimuat
         window.addEventListener('load', function() {

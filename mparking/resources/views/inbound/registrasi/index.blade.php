@@ -324,7 +324,7 @@
                             timer: 2000,
                             showConfirmButton: false
                         }).then(function() {
-                            location.reload();
+                            window.location.href = "{{ route('dashboard.index') }}";
                         });
                     },
                     error: function(xhr, status, error) {
@@ -332,7 +332,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "Terjadi kesalahan: " + error,
+                            text: "Terjadi kesalahan: " + error
                         });
                     }
                 });

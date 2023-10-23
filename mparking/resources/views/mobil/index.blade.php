@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" id="simpanData" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Simpan
                             </button>
                             <button type="button" id="resetForm" class="btn btn-danger">
@@ -282,7 +282,7 @@
                             timer: 2000,
                             showConfirmButton: false
                         }).then(function() {
-                            location.reload();
+                            window.location.href = "{{ route('dashboard.index') }}";
                         });
                     },
                     error: function(xhr, status, error) {

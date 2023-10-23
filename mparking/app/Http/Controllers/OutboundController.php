@@ -217,7 +217,7 @@ class OutboundController extends Controller
 
             // Ambil data pengguna dari input form
             $startdocumentData = [
-                'status' => "Start Documen - Outboundt",
+                'status' => "Start Document - Outbound",
                 'bundle_id' => $request->input('bdlid'),
                 'no_do' => $request->input('nodo'),
                 'waktu_start_document' => $waktuStartDocument,

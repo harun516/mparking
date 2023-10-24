@@ -51,12 +51,14 @@
                     <form id="login-form" action="#">
                         <input type="text" id="nama" class="form-control" placeholder="Nama">
                         <input type="password" id="password" class="form-control" placeholder="Password">
-                        <button type="submit" class="btn btn-login btn-primary btn-block">Login</button>
+                        <button type="submit" id="submit-btn"
+                            class="btn btn-login btn-primary btn-block">Login</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 
     <script>
         $(document).ready(function() {
@@ -131,6 +133,9 @@
             });
         });
     </script>
+    <header>
+        <meta name="X-Laravel-Hide-Code" content="true">
+    </header>
 </body>
 
 </html>
